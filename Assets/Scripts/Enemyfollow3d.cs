@@ -1,27 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyFollow3D : MonoBehaviour
+public class BossAI : MonoBehaviour
 {
-    public float detectionRange = 15f; // Tầm phát hiện player
-    public float moveSpeed = 3.5f;     // Tốc độ di chuyển bot
+    private Transform player;  // không cần public nữa
+    public Transform firePoint;
+    public GameObject bulletPrefab;
 
+    public float attackRange = 10f;
+    public float bulletForce = 20f;
+    public float attackCooldown = 1.5f;
+
+    private float nextAttackTime = 0f;
     private NavMeshAgent agent;
-    private Transform player;
 
     void Start()
     {
-        // Lấy NavMeshAgent từ Enemy
         agent = GetComponent<NavMeshAgent>();
 
-        // Set tốc độ cho agent
-        agent.speed = moveSpeed;
-
         // Tìm Player bằng tag
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
         {
-            player = playerObj.transform;
+            player = p.transform;
+        }
+        else
+        {
+            Debug.LogError("Không tìm thấy Player! Hãy chắc chắn Player có tag 'Player'");
         }
     }
 
@@ -29,18 +34,42 @@ public class EnemyFollow3D : MonoBehaviour
     {
         if (player == null) return;
 
-        // Tính khoảng cách đến player
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if (distance < detectionRange)
+        if (distance > attackRange)
         {
-            // Bot đuổi theo player
+            // Luôn chạy theo player khi ngoài tầm bắn
+            agent.isStopped = false;
             agent.SetDestination(player.position);
         }
         else
         {
-            // Nếu player ra khỏi tầm thì bot đứng yên
-            agent.ResetPath();
+            // Trong tầm bắn -> dừng lại
+            agent.isStopped = true;
+
+            // Xoay về phía Player
+            Vector3 dir = (player.position - transform.position).normalized;
+            dir.y = 0;
+            if (dir != Vector3.zero)
+                transform.rotation = Quaternion.LookRotation(dir);
+
+            // Bắn cooldown
+            if (Time.time >= nextAttackTime)
+            {
+                Shoot();
+                nextAttackTime = Time.time + attackCooldown;
+            }
         }
+    }
+
+    void Shoot()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
+        }
+        Debug.Log("Boss bắn đạn!");
     }
 }
