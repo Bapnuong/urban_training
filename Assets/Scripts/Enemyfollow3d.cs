@@ -68,7 +68,7 @@ public class BossAI : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
+            rb.AddForce(firePoint.forward * bulletForce*1000, ForceMode.Impulse);
         }
         Debug.Log("Boss bắn đạn!");
     }
