@@ -1,10 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemydamaged : MonoBehaviour
 {
 
     public float maxhealth = 100f;
     public float currenthealth;
+    public GameObject hop; // vật phẩm rơi ra khi chết
     void Start()
     {
         currenthealth = maxhealth;
@@ -29,6 +30,12 @@ public class Enemydamaged : MonoBehaviour
     void Die()
     {
         Debug.Log("Enemy died");
+        GameObject drop = Instantiate(hop, transform.position, Quaternion.identity);
+        Rigidbody rb = drop.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.AddForce(Vector3.up * 5f, ForceMode.Impulse); // bắn lên trên 1 chút
+        }
         Destroy(this.gameObject);
     }
 }

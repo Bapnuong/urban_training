@@ -12,6 +12,7 @@ public class BossAI : MonoBehaviour
     public float attackCooldown = 0.3f; // delay giữa mỗi viên
     public int magazineSize = 5;        // số viên trong 1 băng
     public float reloadTime = 2f;       // thời gian nạp đạn
+    public float speed = 800f;  
 
     private int currentAmmo;
     private float nextAttackTime = 0f;
@@ -80,7 +81,7 @@ public class BossAI : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
+            rb.AddForce(firePoint.forward * bulletForce * speed, ForceMode.Impulse);
         }
         Debug.Log("Boss bắn đạn! Còn: " + currentAmmo + " viên");
     }
