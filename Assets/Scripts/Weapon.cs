@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
 
             currentshootingmode = (fireMode)nextMode;
 
-            Debug.Log("–? ?i sang ch? ?: " + currentshootingmode);
+            Debug.Log("√ê? √∞?i sang ch? √∞?: " + currentshootingmode);
         }
 
         if (Input.GetKeyDown(KeyCode.R) && currentAmmor < MaxAmmor)

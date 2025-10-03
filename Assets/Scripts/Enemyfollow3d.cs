@@ -3,20 +3,26 @@ using UnityEngine.AI;
 
 public class BossAI : MonoBehaviour
 {
-    private Transform player;  // không cần public nữa
+    private Transform player;
     public Transform firePoint;
     public GameObject bulletPrefab;
 
     public float attackRange = 10f;
     public float bulletForce = 20f;
-    public float attackCooldown = 1.5f;
+    public float attackCooldown = 0.3f; // delay giữa mỗi viên
+    public int magazineSize = 5;        // số viên trong 1 băng
+    public float reloadTime = 2f;       // thời gian nạp đạn
 
+    private int currentAmmo;
     private float nextAttackTime = 0f;
+    private bool isReloading = false;
+
     private NavMeshAgent agent;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        currentAmmo = magazineSize; // full đạn khi bắt đầu
 
         // Tìm Player bằng tag
         GameObject p = GameObject.FindGameObjectWithTag("Player");
@@ -34,17 +40,17 @@ public class BossAI : MonoBehaviour
     {
         if (player == null) return;
 
+        if (isReloading) return; // khi đang reload thì không làm gì
+
         float distance = Vector3.Distance(transform.position, player.position);
 
         if (distance > attackRange)
         {
-            // Luôn chạy theo player khi ngoài tầm bắn
             agent.isStopped = false;
             agent.SetDestination(player.position);
         }
         else
         {
-            // Trong tầm bắn -> dừng lại
             agent.isStopped = true;
 
             // Xoay về phía Player
@@ -54,10 +60,16 @@ public class BossAI : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(dir);
 
             // Bắn cooldown
-            if (Time.time >= nextAttackTime)
+            if (Time.time >= nextAttackTime && currentAmmo > 0)
             {
                 Shoot();
+                currentAmmo--;
                 nextAttackTime = Time.time + attackCooldown;
+
+                if (currentAmmo <= 0)
+                {
+                    StartCoroutine(Reload());
+                }
             }
         }
     }
@@ -68,8 +80,18 @@ public class BossAI : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.AddForce(firePoint.forward * bulletForce*1000, ForceMode.Impulse);
+            rb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
         }
-        Debug.Log("Boss bắn đạn!");
+        Debug.Log("Boss bắn đạn! Còn: " + currentAmmo + " viên");
+    }
+
+    System.Collections.IEnumerator Reload()
+    {
+        isReloading = true;
+        Debug.Log("Boss đang nạp đạn...");
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = magazineSize;
+        isReloading = false;
+        Debug.Log("Boss đã nạp xong!");
     }
 }

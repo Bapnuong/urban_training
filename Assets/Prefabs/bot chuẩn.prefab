@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFollow3D
   firePoint: {fileID: 1220854059184122894}
   bulletPrefab: {fileID: 4895077014636784056, guid: b280d0159b821bd4eb4da0f3754a035e, type: 3}
-  attackRange: 10
+  attackRange: 40
   bulletForce: 20
   attackCooldown: 1
 --- !u!195 &5001719787672637851
