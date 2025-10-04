@@ -6,12 +6,15 @@ public class Damaged : MonoBehaviour
     [Header("Player Health")]
     public float maxHealth = 100f;
     public float currentHealth;
-    [Header("Ammor")]
+
+    [Header("Armor")]
     public float maxAmmor = 100f;
     public float currentAmmor;
+
     [Header("UI")]
     public Text textHealth;
     public Text textAmmor;
+
     [Header("Animation")]
     private Animator animator;
     private bool isDead = false;
@@ -23,7 +26,7 @@ public class Damaged : MonoBehaviour
         UpdateHealthText();
         UpdateAmmorText();
 
-        animator = GetComponent<Animator>(); // Lấy Animator từ Player
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -35,15 +38,17 @@ public class Damaged : MonoBehaviour
     public void PlayerTakeDamage(float damage)
     {
         if (isDead) return;
-        if(currentAmmor > 0)
+
+        if (currentAmmor > 0)
         {
             currentAmmor -= damage;
-            return; 
+            return;
         }
         else currentHealth -= damage;
+
         UpdateHealthText();
 
-        // Animation bị trúng đạn
+        // Animation bị bắn
         animator.SetTrigger("Hit");
 
         if (currentHealth <= 0)
@@ -62,6 +67,7 @@ public class Damaged : MonoBehaviour
         if (textAmmor != null)
             textAmmor.text = currentAmmor.ToString();
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("bullet"))
@@ -78,10 +84,6 @@ public class Damaged : MonoBehaviour
         isDead = true;
         Debug.Log("Player died");
 
-        animator.SetTrigger("Die"); // gọi animation Die
-        
-        // Nếu muốn xoá nhân vật sau khi chết
-        // Destroy(gameObject, 3f);
+        animator.SetTrigger("Die");
     }
-
 }

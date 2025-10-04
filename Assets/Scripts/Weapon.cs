@@ -20,9 +20,9 @@ public class Weapon : MonoBehaviour
     public float spreadIntensity;
 
     public int maxAmmo = 180;
-    public int reserveAmmo = 180;   // đạn dự trữ
-    public int magSize = 30;        // sức chứa 1 băng
-    public int currentAmmo;         // đạn trong băng hiện tại
+    public int reserveAmmo = 180;
+    public int magSize = 30;
+    public int currentAmmo;
     public Text ammortext;
 
     public enum fireMode
@@ -34,16 +34,21 @@ public class Weapon : MonoBehaviour
 
     public fireMode currentshootingmode;
 
+    // Animator
+    private Animator animator;
+
     private void Awake()
     {
         readytoShoot = true;
         currentAmmo = magSize;
         currentburst = bulletpershoot;
+
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // --- điều khiển bắn ---
+        // điều khiển bắn
         if (currentshootingmode == fireMode.automatic)
             isShooting = Input.GetKey(KeyCode.Mouse0);
         else if (currentshootingmode == fireMode.burst)
@@ -51,14 +56,20 @@ public class Weapon : MonoBehaviour
         else if (currentshootingmode == fireMode.single)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        // --- bắn ---
+        // animation Shooting
+        if (animator != null)
+        {
+            animator.SetBool("isShooting", isShooting && currentAmmo > 0);
+        }
+
+        // bắn
         if (readytoShoot && isShooting && canShoot && currentAmmo > 0)
         {
             currentburst = bulletpershoot;
             Shoot();
         }
 
-        // --- đổi chế độ bắn ---
+        // đổi mode
         if (Input.GetKeyDown(KeyCode.B))
         {
             int nextMode = (int)currentshootingmode + 1;
@@ -67,13 +78,13 @@ public class Weapon : MonoBehaviour
             Debug.Log("Đã đổi sang chế độ: " + currentshootingmode);
         }
 
-        // --- reload ---
+        // reload
         if (Input.GetKeyDown(KeyCode.R) && currentAmmo < magSize && reserveAmmo > 0)
         {
             StartCoroutine(Reload(2f));
         }
 
-        // --- update UI ---
+        // UI
         ammortext.text = currentAmmo.ToString() + " / " + reserveAmmo.ToString();
     }
 
@@ -122,9 +133,12 @@ public class Weapon : MonoBehaviour
         readytoShoot = false;
         Debug.Log("Reloading...");
 
+        // animation reload
+        if (animator != null) animator.SetTrigger("Reload");
+
         yield return new WaitForSeconds(time);
 
-        int neededAmmo = magSize - currentAmmo;  // số đạn thiếu
+        int neededAmmo = magSize - currentAmmo;
         if (reserveAmmo >= neededAmmo)
         {
             currentAmmo = magSize;
@@ -159,10 +173,10 @@ public class Weapon : MonoBehaviour
 
         return directionWithoutSpread + new Vector3(x, y, 0);
     }
+
     public void AddAmmo(int amount)
     {
         reserveAmmo = Mathf.Min(reserveAmmo + amount, maxAmmo);
         Debug.Log("Đạn dự trữ: " + reserveAmmo);
     }
-
 }
