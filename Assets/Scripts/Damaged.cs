@@ -18,6 +18,8 @@ public class Damaged : MonoBehaviour
     [Header("Animation")]
     private Animator animator;
     private bool isDead = false;
+    private float lastHitTime = 0f;
+    public float hitCooldown = 0.5f;
 
     void Start()
     {
@@ -44,27 +46,28 @@ public class Damaged : MonoBehaviour
     {
         if (isDead) return;
 
-        // Xử lý damage vào armor trước, sau đó health
+        // Giảm armor trước
         if (currentArmor > 0)
         {
             float armorDamage = Mathf.Min(damage, currentArmor);
             currentArmor -= armorDamage;
-            damage -= armorDamage; // Damage còn lại
+            damage -= armorDamage;
         }
 
-        if (damage > 0 && currentArmor <= 0)
+        if (damage > 0)
         {
             currentHealth -= damage;
         }
 
-        // ✅ LUÔN TRIGGER ANIMATION KHI BỊ BẮN (nếu chưa chết)
-        if (currentHealth > 0)
-        {
-            animator.SetTrigger("Hit");
-        }
-
         UpdateHealthText();
         UpdateArmorText();
+
+        // Trigger animation Hit nếu chưa chết và cooldown đã hết
+        if (currentHealth > 0 && Time.time - lastHitTime >= hitCooldown)
+        {
+            animator.SetTrigger("Hit");
+            lastHitTime = Time.time;
+        }
 
         // Kiểm tra chết
         if (currentHealth <= 0)
@@ -91,8 +94,6 @@ public class Damaged : MonoBehaviour
         {
             Debug.Log("Player hit by bullet!");
             PlayerTakeDamage(20f);
-
-            // Hủy bullet sau khi va chạm
             Destroy(collision.gameObject);
         }
     }
@@ -102,8 +103,7 @@ public class Damaged : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        Debug.Log("Player died!");
-
         animator.SetTrigger("Die");
+        Debug.Log("Player died!");
     }
 }

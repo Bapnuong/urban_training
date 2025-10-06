@@ -204,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
       propertyPath: m_Name
-      value: Character_01 1
+      value: Main
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
       propertyPath: m_TagString
@@ -236,9 +236,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2690996980705708154}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2875638465714479944}
   m_SourcePrefab: {fileID: 100100000, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
 --- !u!4 &3961242946791743127 stripped
 Transform:
@@ -310,19 +307,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
---- !u!114 &2875638465714479944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4445890472744535085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd0ebaf788ee7884eb81c4de83b49509, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 100
 --- !u!1001 &5747399811183260792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,9 +398,10 @@ MonoBehaviour:
   bulletpershoot: 3
   currentburst: 0
   spreadIntensity: 0
-  MaxAmmor: 30
-  currentAmmor: 0
-  canReload: 0
+  maxAmmo: 180
+  reserveAmmo: 180
+  magSize: 30
+  currentAmmo: 0
   ammortext: {fileID: 0}
   currentshootingmode: 0
 --- !u!4 &5747399811183652600 stripped

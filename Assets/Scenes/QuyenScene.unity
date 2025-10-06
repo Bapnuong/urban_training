@@ -16892,10 +16892,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Damaged
   maxHealth: 100
   currentHealth: 0
-  maxAmmor: 100
-  currentAmmor: 0
+  maxArmor: 100
+  currentArmor: 0
   textHealth: {fileID: 470353694}
-  textAmmor: {fileID: 270505522}
+  textArmor: {fileID: 270505522}
+  hitCooldown: 0.5
 --- !u!1001 &469708224
 PrefabInstance:
   m_ObjectHideFlags: 0
