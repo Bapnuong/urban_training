@@ -12,6 +12,10 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject, lifeTime); // Tự hủy sau lifeTime giây
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySound0();  // hoặc PlaySound(index) tùy âm bạn gán
+        }
     }
 
     void Update()

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class MouseMovement : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     void Update()
@@ -25,5 +26,6 @@ public class MouseMovement : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, topClamp, bottomClamp);
 
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+
     }
 }

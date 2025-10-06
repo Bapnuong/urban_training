@@ -113,6 +113,10 @@ public class Weapon : MonoBehaviour
             currentburst--;
             Invoke("Shoot", timeBetween);
         }
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySound2();  // hoặc PlaySound(index) tùy âm bạn gán
+        }
     }
 
     private void ResetShot()
@@ -153,6 +157,10 @@ public class Weapon : MonoBehaviour
         canShoot = true;
         readytoShoot = true;
         Debug.Log("Reloaded!");
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySound3();  // hoặc PlaySound(index) tùy âm bạn gán
+        }
     }
 
     public Vector3 CalculateDirectionAndSpread()

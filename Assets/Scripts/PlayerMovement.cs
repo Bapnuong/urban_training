@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
     private Animator animator;
+    private AudioSource footstepSource;
 
     public float speed = 12f;
     public float gravity = -9.81f * 2;
@@ -21,6 +22,16 @@ public class PlayerMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+
+        // Tạo AudioSource riêng cho bước chân
+        footstepSource = gameObject.AddComponent<AudioSource>();
+        footstepSource.loop = true; // Lặp âm thanh bước chân
+
+        // Nếu SoundManager có sẵn, lấy clip bước chân (ví dụ soundList[1])
+        if (SoundManager.Instance != null && SoundManager.Instance.soundList.Count > 1)
+        {
+            footstepSource.clip = SoundManager.Instance.soundList[1];
+        }
     }
 
     void Update()
@@ -44,6 +55,10 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             animator.SetTrigger("Jump");
+
+            // âm thanh nhảy
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySound(2);
         }
 
         // gravity
@@ -56,5 +71,22 @@ public class PlayerMovement : MonoBehaviour
         // animator parameters
         animator.SetBool("isRunning", isMoving);
         animator.SetBool("isGrounded", isGrounded);
+
+        // xử lý âm bước chân
+        HandleFootstepSound();
+    }
+
+    void HandleFootstepSound()
+    {
+        if (isMoving && isGrounded)
+        {
+            if (!footstepSource.isPlaying && footstepSource.clip != null)
+                footstepSource.Play();
+        }
+        else
+        {
+            if (footstepSource.isPlaying)
+                footstepSource.Stop();
+        }
     }
 }

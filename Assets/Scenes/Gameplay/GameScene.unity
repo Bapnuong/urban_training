@@ -2801,6 +2801,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5412017221204367677, guid: abe3d47b915ca924a9e06dd6d3321396, type: 3}
   m_PrefabInstance: {fileID: 87786194}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &95742675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 95742676}
+  - component: {fileID: 95742677}
+  m_Layer: 0
+  m_Name: soundmusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &95742676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95742675}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -199.22865, y: 0.05, z: -0.82227}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &95742677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95742675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c5d14a414d4c845937a1d920105edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  soundList:
+  - {fileID: 8300000, guid: aaff5e2d1cc8e5941b67d184cd692079, type: 3}
+  - {fileID: 8300000, guid: c0ed42bee06a5534b83a58cdfa026cd3, type: 3}
+  - {fileID: 8300000, guid: 52d928497e6394d438f2623aab881722, type: 3}
+  - {fileID: 8300000, guid: b2b97366020172b4282f5b04c7915048, type: 3}
 --- !u!1 &98058263
 GameObject:
   m_ObjectHideFlags: 0
@@ -16892,10 +16941,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Damaged
   maxHealth: 100
   currentHealth: 0
-  maxAmmor: 100
-  currentAmmor: 0
+  maxArmor: 100
+  currentArmor: 0
   textHealth: {fileID: 470353694}
-  textAmmor: {fileID: 270505522}
+  textArmor: {fileID: 0}
+  hitCooldown: 0.5
 --- !u!1001 &469708224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67048,3 +67098,4 @@ SceneRoots:
   - {fileID: 190091848}
   - {fileID: 1212044302}
   - {fileID: 974201486}
+  - {fileID: 95742676}
