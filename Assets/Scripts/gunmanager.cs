@@ -24,6 +24,10 @@ public class danhsachvukhi : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(3);
+
+
+
 
         // Hoặc cuộn chuột
         float scroll = Input.GetAxis("Mouse ScrollWheel");
