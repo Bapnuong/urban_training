@@ -8,12 +8,12 @@ public class Damaged : MonoBehaviour
     public float currentHealth;
 
     [Header("Armor")]
-    public float maxAmmor = 100f;
-    public float currentAmmor;
+    public float maxArmor = 100f;
+    public float currentArmor;
 
     [Header("UI")]
     public Text textHealth;
-    public Text textAmmor;
+    public Text textArmor;
 
     [Header("Animation")]
     private Animator animator;
@@ -21,36 +21,52 @@ public class Damaged : MonoBehaviour
 
     void Start()
     {
-        currentAmmor = maxAmmor;
+        currentArmor = maxArmor;
         currentHealth = maxHealth;
         UpdateHealthText();
-        UpdateAmmorText();
+        UpdateArmorText();
 
         animator = GetComponent<Animator>();
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator component not found!");
+        }
     }
 
     private void Update()
     {
         UpdateHealthText();
-        UpdateAmmorText();
+        UpdateArmorText();
     }
 
     public void PlayerTakeDamage(float damage)
     {
         if (isDead) return;
 
-        if (currentAmmor > 0)
+        // Xử lý damage vào armor trước, sau đó health
+        if (currentArmor > 0)
         {
-            currentAmmor -= damage;
-            return;
+            float armorDamage = Mathf.Min(damage, currentArmor);
+            currentArmor -= armorDamage;
+            damage -= armorDamage; // Damage còn lại
         }
-        else currentHealth -= damage;
+
+        if (damage > 0 && currentArmor <= 0)
+        {
+            currentHealth -= damage;
+        }
+
+        // ✅ LUÔN TRIGGER ANIMATION KHI BỊ BẮN (nếu chưa chết)
+        if (currentHealth > 0)
+        {
+            animator.SetTrigger("Hit");
+        }
 
         UpdateHealthText();
+        UpdateArmorText();
 
-        // Animation bị bắn
-        animator.SetTrigger("Hit");
-
+        // Kiểm tra chết
         if (currentHealth <= 0)
         {
             Die();
@@ -60,20 +76,24 @@ public class Damaged : MonoBehaviour
     public void UpdateHealthText()
     {
         if (textHealth != null)
-            textHealth.text = currentHealth.ToString();
+            textHealth.text = "HP: " + Mathf.Max(0, currentHealth).ToString("F0");
     }
-    public void UpdateAmmorText()
+
+    public void UpdateArmorText()
     {
-        if (textAmmor != null)
-            textAmmor.text = currentAmmor.ToString();
+        if (textArmor != null)
+            textArmor.text = "Armor: " + Mathf.Max(0, currentArmor).ToString("F0");
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("bullet"))
         {
-            Debug.Log("Player hit by enemy");
+            Debug.Log("Player hit by bullet!");
             PlayerTakeDamage(20f);
+
+            // Hủy bullet sau khi va chạm
+            Destroy(collision.gameObject);
         }
     }
 
@@ -82,7 +102,7 @@ public class Damaged : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        Debug.Log("Player died");
+        Debug.Log("Player died!");
 
         animator.SetTrigger("Die");
     }
