@@ -262,7 +262,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemydamaged
   maxhealth: 100
   currenthealth: 0
-  hop: {fileID: 8875339812699091727, guid: decdf7e3b9c37a64e83ac843bc90b71a, type: 3}
+  hop: {fileID: 7145165998672086327, guid: af8af1ab3d45c874daf3372d9bd960fe, type: 3}
+  HP: {fileID: 8198909352693198359, guid: 84ecf1efb046f604e8edf8818733b7fc, type: 3}
+  Armor: {fileID: 7145165998672086327, guid: 7c72e8cdad12c1e439d335cd140544c8, type: 3}
 --- !u!4 &3168069838551735548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}

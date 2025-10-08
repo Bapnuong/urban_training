@@ -97,7 +97,22 @@ public class Damaged : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-
+    public void Heal(float amount)
+    {
+        if (isDead) return;
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+        UpdateHealthText();
+    }
+    public void AddArmor(float amount)
+    {
+        if (isDead) return;
+        currentArmor += amount;
+        if (currentArmor > maxArmor)
+            currentArmor = maxArmor;
+        UpdateArmorText();
+    }
     void Die()
     {
         if (isDead) return;
