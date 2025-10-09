@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class BossAI : MonoBehaviour
+public class BossAIi : MonoBehaviour
 {
     private Transform player;
     public Transform firePoint;
