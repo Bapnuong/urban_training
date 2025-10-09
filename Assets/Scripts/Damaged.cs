@@ -6,6 +6,9 @@ public class Damaged : MonoBehaviour
     [Header("Player Health")]
     public float maxHealth = 100f;
     public float currentHealth;
+    //hieu ung 
+    public GameObject objhieuung;
+    public float effectDuration = 0.4f;
 
     [Header("Armor")]
     public float maxArmor = 100f;
@@ -27,6 +30,7 @@ public class Damaged : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthText();
         UpdateArmorText();
+       
 
         animator = GetComponent<Animator>();
 
@@ -40,6 +44,7 @@ public class Damaged : MonoBehaviour
     {
         UpdateHealthText();
         UpdateArmorText();
+        
     }
 
     public void PlayerTakeDamage(float damage)
@@ -57,6 +62,9 @@ public class Damaged : MonoBehaviour
         if (damage > 0)
         {
             currentHealth -= damage;
+
+            // Bật hiệu ứng trong thời gian ngắn
+            StartCoroutine(ShowHitEffect());
         }
 
         UpdateHealthText();
@@ -74,6 +82,12 @@ public class Damaged : MonoBehaviour
         {
             Die();
         }
+    }
+    private System.Collections.IEnumerator ShowHitEffect()
+    {
+        objhieuung.SetActive(true);
+        yield return new WaitForSeconds(effectDuration);
+        objhieuung.SetActive(false);
     }
 
     public void UpdateHealthText()
