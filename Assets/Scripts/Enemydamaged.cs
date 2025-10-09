@@ -9,8 +9,10 @@ public class Enemydamaged : MonoBehaviour
     public GameObject hop; // vật phẩm rơi ra khi chết
     public GameObject HP;
     public GameObject Armor;
+    Animator animator;
     void Start()
     {
+        animator = GetComponent<Animator>();
         currenthealth = maxhealth;
     }
     public void EnemyTakeDamage(float damage)
@@ -32,6 +34,7 @@ public class Enemydamaged : MonoBehaviour
     }
     void Die()
     {
+        animator.SetTrigger("Death");
         Debug.Log("Enemy died");
         int henxui = Random.Range(1, 10);
         if (henxui > 5) // 50% cơ hội rơi ra vật phẩm

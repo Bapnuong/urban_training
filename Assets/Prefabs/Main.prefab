@@ -236,6 +236,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2690996980705708154}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4955943076472824347}
   m_SourcePrefab: {fileID: 100100000, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
 --- !u!4 &3961242946791743127 stripped
 Transform:
@@ -308,6 +311,35 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &4955943076472824347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445890472744535085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
+  bulletspawn: {fileID: 4823770397578246950}
+  bulletVelocity: 800
+  bulletLifetime: 2
+  fpsCam: {fileID: 6738845723706126342}
+  isShooting: 0
+  readytoShoot: 0
+  timeBetween: 0.2
+  bulletpershoot: 3
+  currentburst: 0
+  spreadIntensity: 0
+  maxAmmo: 180
+  reserveAmmo: 180
+  magSize: 30
+  currentAmmo: 0
+  ammortext: {fileID: 0}
+  currentshootingmode: 0
 --- !u!4 &8489240565616925444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4952912118456820344, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}

@@ -8301,11 +8301,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!20 &245913567 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 6738845723706126342, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
-  m_PrefabInstance: {fileID: 527480471}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &249719933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16907,35 +16902,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3961242946791743127, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
   m_PrefabInstance: {fileID: 527480471}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &469685437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469685430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
-  bulletspawn: {fileID: 1668032569}
-  bulletVelocity: 800
-  bulletLifetime: 2
-  fpsCam: {fileID: 245913567}
-  isShooting: 0
-  readytoShoot: 0
-  timeBetween: 0.2
-  bulletpershoot: 3
-  currentburst: 0
-  spreadIntensity: 0
-  maxAmmo: 180
-  reserveAmmo: 180
-  magSize: 30
-  currentAmmo: 0
-  ammortext: {fileID: 2118193598}
-  currentshootingmode: 0
 --- !u!1001 &469708224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18400,6 +18366,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4955943076472824347, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
+      propertyPath: ammortext
+      value: 
+      objectReference: {fileID: 2118193598}
     - target: {fileID: 6137405864492844906, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
       propertyPath: ammortext
       value: 
@@ -18417,11 +18387,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4445890472744535085, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
-      insertIndex: -1
+      insertIndex: 5
       addedObject: {fileID: 469685431}
-    - targetCorrespondingSourceObject: {fileID: 4445890472744535085, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 469685437}
     - targetCorrespondingSourceObject: {fileID: 5023712832317419442, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
       insertIndex: -1
       addedObject: {fileID: 245913565}
@@ -51895,11 +51862,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662933570}
   m_Mesh: {fileID: -5495902117074765545, guid: cf4c16720fab71d439b0e6f26e63d921, type: 3}
---- !u!4 &1668032569 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4823770397578246950, guid: 8cd30e68fc9d23a4397a1b5fb5433648, type: 3}
-  m_PrefabInstance: {fileID: 527480471}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1670271988
 PrefabInstance:
   m_ObjectHideFlags: 0
