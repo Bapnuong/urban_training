@@ -56,11 +56,7 @@ public class Weapon : MonoBehaviour
         else if (currentshootingmode == fireMode.single)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        // animation Shooting
-        if (animator != null)
-        {
-            animator.SetBool("isShooting", isShooting && currentAmmo > 0);
-        }
+        
 
         // bắn
         if (readytoShoot && isShooting && canShoot && currentAmmo > 0)
@@ -68,6 +64,7 @@ public class Weapon : MonoBehaviour
             currentburst = bulletpershoot;
             Shoot();
         }
+        else animator.SetBool("isShooting", false);
 
         // đổi mode
         if (Input.GetKeyDown(KeyCode.B))
@@ -100,6 +97,11 @@ public class Weapon : MonoBehaviour
 
         currentAmmo--;
 
+        if (animator != null)
+        {
+            animator.SetBool("isShooting", isShooting);
+        }
+
         if (currentAmmo <= 0) return;
 
         if (canShoot)
@@ -113,11 +115,14 @@ public class Weapon : MonoBehaviour
             currentburst--;
             Invoke("Shoot", timeBetween);
         }
+
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlaySound2();  // hoặc PlaySound(index) tùy âm bạn gán
+            SoundManager.Instance.PlaySound2();
         }
     }
+
+
 
     private void ResetShot()
     {
@@ -139,7 +144,7 @@ public class Weapon : MonoBehaviour
 
         // animation reload
         if (animator != null) animator.SetTrigger("Reload");
-
+        animator.SetBool("isShooting", false);
         yield return new WaitForSeconds(time);
 
         int neededAmmo = magSize - currentAmmo;

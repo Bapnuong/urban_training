@@ -223,8 +223,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1319905686763396496}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: 4952912118456820344, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
+      insertIndex: 0
       addedObject: {fileID: 5747399811183652600}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a1ad8a198da2a40b06a4b1fbd783b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseMovement
+  playerBody: {fileID: 0}
   mouseSensitivity: 100
   topClamp: -90
   bottomClamp: 90
@@ -307,57 +308,74 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!4 &8489240565616925444 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4952912118456820344, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
+  m_PrefabInstance: {fileID: 3563350083581147516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5747399811183260792
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3961242946791743127}
+    m_TransformParent: {fileID: 8489240565616925444}
     m_Modifications:
     - target: {fileID: 100000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_Name
       value: AK74
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.010000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.009999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.010000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.24
+      value: 0.00079
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.45
+      value: -0.00088
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.42
+      value: 0.00001
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0968008
+      value: 0.72295594
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00017621176
+      value: 0.64357454
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9953012
+      value: 0.24648204
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0022625166
+      value: 0.04892043
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.26
+      value: 65.017
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 191.11
+      value: 83.185
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.005
+      value: 66.732
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -365,45 +383,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4823770397578246950}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6137405864492844906}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
---- !u!1 &5747399811183162072 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
-  m_PrefabInstance: {fileID: 5747399811183260792}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6137405864492844906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5747399811183162072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
-  bulletspawn: {fileID: 4823770397578246950}
-  bulletVelocity: 100
-  bulletLifetime: 2
-  fpsCam: {fileID: 6738845723706126342}
-  isShooting: 0
-  readytoShoot: 0
-  timeBetween: 0.2
-  bulletpershoot: 3
-  currentburst: 0
-  spreadIntensity: 0
-  maxAmmo: 180
-  reserveAmmo: 180
-  magSize: 30
-  currentAmmo: 0
-  ammortext: {fileID: 0}
-  currentshootingmode: 0
 --- !u!4 &5747399811183652600 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
