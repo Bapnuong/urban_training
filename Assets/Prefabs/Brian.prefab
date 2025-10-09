@@ -532,6 +532,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 410435872607556702}
   - {fileID: 8695150375845139605}
   - {fileID: 467138111130266755}
   - {fileID: 2033801480167079218}
@@ -1680,6 +1681,7 @@ GameObject:
   - component: {fileID: 4877572541172174676}
   - component: {fileID: 4320269947715595506}
   - component: {fileID: 7558998346690504789}
+  - component: {fileID: 1270457596713015736}
   m_Layer: 0
   m_Name: Brian
   m_TagString: Player
@@ -1696,7 +1698,7 @@ Transform:
   m_GameObject: {fileID: 3867120140435537069}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -253.42, y: 2.66, z: 38.138474}
+  m_LocalPosition: {x: 601.49, y: 0, z: 277.64365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1797,6 +1799,35 @@ MonoBehaviour:
   textHealth: {fileID: 0}
   textArmor: {fileID: 0}
   hitCooldown: 0.5
+--- !u!114 &1270457596713015736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3867120140435537069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
+  bulletspawn: {fileID: 8387976841413283877}
+  bulletVelocity: 800
+  bulletLifetime: 2
+  fpsCam: {fileID: 805924194449184575}
+  isShooting: 0
+  readytoShoot: 0
+  timeBetween: 0.2
+  bulletpershoot: 3
+  currentburst: 0
+  spreadIntensity: 0
+  maxAmmo: 180
+  reserveAmmo: 180
+  magSize: 30
+  currentAmmo: 0
+  ammortext: {fileID: 0}
+  currentshootingmode: 0
 --- !u!1 &4038845947894234513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,7 +2389,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 410435872607556702}
-  - component: {fileID: 5159592730386503505}
   m_Layer: 0
   m_Name: AK47
   m_TagString: Untagged
@@ -2374,46 +2404,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5718911350230512806}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5270233, y: -1.4638999, z: 0.27682495}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.026987059, y: 0.7468971, z: 0.64486635, w: -0.15988705}
+  m_LocalPosition: {x: -0.00019552691, y: -0.006934439, z: -0.014033613}
+  m_LocalScale: {x: 0.010000001, y: 0.009999997, z: 0.010000003}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4947177779504724640}
   - {fileID: 32495665531193978}
   - {fileID: 2236323458130180656}
   - {fileID: 8387976841413283877}
-  m_Father: {fileID: 1151235250962891254}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5159592730386503505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5718911350230512806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
-  bulletspawn: {fileID: 8387976841413283877}
-  bulletVelocity: 800
-  bulletLifetime: 2
-  fpsCam: {fileID: 805924194449184575}
-  isShooting: 0
-  readytoShoot: 0
-  timeBetween: 0.2
-  bulletpershoot: 3
-  currentburst: 0
-  spreadIntensity: 0
-  maxAmmo: 180
-  reserveAmmo: 180
-  magSize: 30
-  currentAmmo: 0
-  ammortext: {fileID: 0}
-  currentshootingmode: 0
+  m_Father: {fileID: 6115866604469893101}
+  m_LocalEulerAnglesHint: {x: -76.392, y: 240.133, z: -44.838}
 --- !u!1 &5768340300010224320
 GameObject:
   m_ObjectHideFlags: 0
@@ -3264,7 +3265,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7796812863638001196}
-  - {fileID: 410435872607556702}
   m_Father: {fileID: 3977745805550908564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7532845305821204671
