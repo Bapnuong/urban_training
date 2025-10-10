@@ -1681,7 +1681,6 @@ GameObject:
   - component: {fileID: 4877572541172174676}
   - component: {fileID: 4320269947715595506}
   - component: {fileID: 7558998346690504789}
-  - component: {fileID: 1270457596713015736}
   m_Layer: 0
   m_Name: Brian
   m_TagString: Player
@@ -1801,25 +1800,6 @@ MonoBehaviour:
   textHealth: {fileID: 0}
   textArmor: {fileID: 0}
   hitCooldown: 0.5
---- !u!114 &1270457596713015736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3867120140435537069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  weaponData: {fileID: 0}
-  bulletspawn: {fileID: 8387976841413283877}
-  fpsCam: {fileID: 805924194449184575}
-  ammortext: {fileID: 0}
-  isShooting: 0
-  readyToShoot: 0
-  canShoot: 1
 --- !u!1 &4038845947894234513
 GameObject:
   m_ObjectHideFlags: 0
