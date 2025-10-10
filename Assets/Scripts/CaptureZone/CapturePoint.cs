@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class CapturePoint : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class CapturePoint : MonoBehaviour
     public Color teamBColor = Color.red;
     public Color contestedColor = Color.yellow;
 
+    [Header("UI hiển thị % chiếm")]
+    public Text captureUIText; // <— gán Text ở đây
+    private bool playerInside = false;
+
     // Biến đếm số lượng người chơi trong vùng của từng đội
     public int teamA_Count = 0;
     public int teamB_Count = 0;
@@ -28,6 +33,9 @@ public class CapturePoint : MonoBehaviour
             zoneRenderer = GetComponent<Renderer>();
 
         zoneRenderer.material.color = neutralColor;
+
+        if (captureUIText != null)
+            captureUIText.gameObject.SetActive(false);
     }
 
     void Update()
@@ -58,6 +66,8 @@ public class CapturePoint : MonoBehaviour
                 captureProgress = Mathf.Max(0, captureProgress - Time.deltaTime); // giảm dần
             }
         }
+        if (playerInside && captureUIText != null && !isCaptured)
+            captureUIText.text = $"Chiếm cứ điểm: {(captureProgress * 100f):0}%";
     }
 
     private void CaptureProgress(string team)
@@ -80,6 +90,10 @@ public class CapturePoint : MonoBehaviour
             isCaptured = true;
             currentOwner = capturingTeam;
             zoneRenderer.material.color = currentOwner == "PlayerTeam" ? teamAColor : teamBColor;
+
+
+            if (captureUIText != null)
+                captureUIText.text = "Cứ điểm đã bị chiếm!";
             Debug.Log($"Cứ điểm đã bị chiếm bởi {currentOwner}!");
         }
     }
@@ -87,7 +101,12 @@ public class CapturePoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             teamA_Count++;
+            playerInside = true;
+            if (captureUIText != null)
+                captureUIText.gameObject.SetActive(true);
+        }
         else if (other.CompareTag("Enemy"))
             teamB_Count++;
     }
@@ -95,7 +114,12 @@ public class CapturePoint : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             teamA_Count = Mathf.Max(0, teamA_Count - 1);
+            playerInside = false;
+            if (captureUIText != null)
+                captureUIText.gameObject.SetActive(false);
+        }
         else if (other.CompareTag("Enemy"))
             teamB_Count = Mathf.Max(0, teamB_Count - 1);
     }
