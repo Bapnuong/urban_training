@@ -19,7 +19,7 @@ MonoBehaviour:
   timeBetween: 0.6
   bulletsPerShot: 8
   spreadIntensity: 0.2
-  fireMode: 1
+  fireMode: 3
   magSize: 8
   reserveAmmo: 32
   maxAmmo: 32

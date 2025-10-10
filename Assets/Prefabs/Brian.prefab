@@ -1793,7 +1793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Damaged
   maxHealth: 100
   currentHealth: 0
-  objhieuung: {fileID: 0}
+  objhieuung: {fileID: 7854542754751581559, guid: ecf87c86c55fe2f46af264886c7c0e7e, type: 3}
   effectDuration: 0.4
   maxArmor: 100
   currentArmor: 0
