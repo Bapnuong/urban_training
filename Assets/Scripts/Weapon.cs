@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     public Transform bulletspawn;
     public Camera fpsCam;
     public Text ammortext;
+    public GameObject smokeEffect;  // Prefab khói
 
     [HideInInspector] public bool isShooting;
     [HideInInspector] public bool readyToShoot;
@@ -85,7 +86,8 @@ public class Weapon : MonoBehaviour
         bullet.transform.forward = shootingDirection;
         bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * weaponData.bulletVelocity, ForceMode.Impulse);
         StartCoroutine(DestroyBulletAfterTime(bullet, weaponData.bulletLifetime));
-
+        //khoi
+        Instantiate(smokeEffect, bulletspawn.position, bulletspawn.rotation);
         currentAmmo--;
 
         if (playerAnim != null)

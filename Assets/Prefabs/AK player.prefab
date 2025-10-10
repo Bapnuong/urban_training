@@ -288,6 +288,7 @@ MonoBehaviour:
   bulletspawn: {fileID: 2719037047458828987}
   fpsCam: {fileID: 0}
   ammortext: {fileID: 0}
+  smokeEffect: {fileID: 1692918288472291464, guid: 2985dd5fcdebf7342886c3617f7f3521, type: 3}
   isShooting: 0
   readyToShoot: 0
   canShoot: 1
