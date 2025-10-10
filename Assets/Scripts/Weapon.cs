@@ -1,132 +1,116 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using System.Linq;
 public class Weapon : MonoBehaviour
 {
-    public GameObject bulletPrefab;
+    [Header("Weapon Data")]
+    public WeaponData weaponData;
+
+    [Header("References")]
     public Transform bulletspawn;
-    public float bulletVelocity = 30f;
-    public float bulletLifetime = 2f;
-
     public Camera fpsCam;
-    public bool isShooting, readytoShoot;
-    bool canShoot = true;
-    public float timeBetween = 0.1f;
-
-    public int bulletpershoot = 3;
-    public int currentburst;
-
-    public float spreadIntensity;
-
-    public int maxAmmo = 180;
-    public int reserveAmmo = 180;
-    public int magSize = 30;
-    public int currentAmmo;
     public Text ammortext;
 
-    public enum fireMode
-    {
-        automatic,
-        burst,
-        single
-    }
+    [HideInInspector] public bool isShooting;
+    [HideInInspector] public bool readyToShoot;
+    [HideInInspector] public bool canShoot = true;
 
-    public fireMode currentshootingmode;
+    private int currentAmmo;
+    private int reserveAmmo;
+    private int currentburst;
 
-    // Animator
     private Animator animator;
+    private Damaged playerAnim;
+
 
     private void Awake()
     {
-        readytoShoot = true;
-        currentAmmo = magSize;
-        currentburst = bulletpershoot;
+        ammortext = GameObject.FindGameObjectWithTag("AmmoText")?.GetComponent<Text>();
+        if (weaponData == null)
+        {
+            Debug.LogError("WeaponData missing on " + name);
+            return;
+        }
+        if (fpsCam == null)
+        {
+            fpsCam = Camera.main;
+            if (fpsCam == null)
+                Debug.LogError("No Camera.main found for weapon " + name);
+        }
 
-        animator = GetComponent<Animator>();
+        readyToShoot = true;
+        currentAmmo = weaponData.magSize;
+        reserveAmmo = weaponData.reserveAmmo;
+        currentburst = weaponData.bulletsPerShot;
+
+        playerAnim = FindObjectOfType<Damaged>();
     }
 
     void Update()
     {
-        // điều khiển bắn
-        if (currentshootingmode == fireMode.automatic)
+        // Điều khiển bắn
+        if (weaponData.fireMode == fireMode.automatic)
             isShooting = Input.GetKey(KeyCode.Mouse0);
-        else if (currentshootingmode == fireMode.burst)
+        else if (weaponData.fireMode == fireMode.burst)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
-        else if (currentshootingmode == fireMode.single)
+        else if (weaponData.fireMode == fireMode.single)
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
 
+        // Bắn
+        if (readyToShoot && isShooting && canShoot && currentAmmo > 0)
+        {
+            currentburst = weaponData.bulletsPerShot;
+            Shoot();
+        }else if (playerAnim != null)
+            playerAnim.GetComponent<Animator>().SetBool("isShooting", false);
+        // Reload
+        if (Input.GetKeyDown(KeyCode.R) && currentAmmo < weaponData.magSize && reserveAmmo > 0)
+        {
+            StartCoroutine(Reload());
+        }
         
 
-        // bắn
-        if (readytoShoot && isShooting && canShoot && currentAmmo > 0)
-        {
-            currentburst = bulletpershoot;
-            Shoot();
-        }
-        else animator.SetBool("isShooting", false);
-
-        // đổi mode
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            int nextMode = (int)currentshootingmode + 1;
-            if (nextMode > (int)fireMode.single) nextMode = 0;
-            currentshootingmode = (fireMode)nextMode;
-            Debug.Log("Đã đổi sang chế độ: " + currentshootingmode);
-        }
-
-        // reload
-        if (Input.GetKeyDown(KeyCode.R) && currentAmmo < magSize && reserveAmmo > 0)
-        {
-            StartCoroutine(Reload(2f));
-        }
-
         // UI
-        ammortext.text = currentAmmo.ToString() + " / " + reserveAmmo.ToString();
+        if (ammortext != null)
+            ammortext.text = currentAmmo + " / " + reserveAmmo;
     }
 
     void Shoot()
     {
-        readytoShoot = false;
+        readyToShoot = false;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
 
-        GameObject bullet = Instantiate(bulletPrefab, bulletspawn.position, Quaternion.identity);
+        GameObject bullet = Instantiate(weaponData.bulletPrefab, bulletspawn.position, Quaternion.identity);
         bullet.transform.forward = shootingDirection;
-        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletVelocity, ForceMode.Impulse);
-        StartCoroutine(DestroyBulletAfterTime(bullet, bulletLifetime));
+        bullet.GetComponent<Rigidbody>().AddForce(shootingDirection * weaponData.bulletVelocity, ForceMode.Impulse);
+        StartCoroutine(DestroyBulletAfterTime(bullet, weaponData.bulletLifetime));
 
         currentAmmo--;
 
-        if (animator != null)
-        {
-            animator.SetBool("isShooting", isShooting);
-        }
-
+        if (playerAnim != null)
+            playerAnim.GetComponent<Animator>().SetBool("isShooting", true);
         if (currentAmmo <= 0) return;
 
         if (canShoot)
         {
-            Invoke("ResetShot", timeBetween);
+            Invoke(nameof(ResetShot), weaponData.timeBetween);
             canShoot = false;
         }
 
-        if (currentshootingmode == fireMode.burst && currentburst > 1)
+        if (weaponData.fireMode == fireMode.burst && currentburst > 1)
         {
             currentburst--;
-            Invoke("Shoot", timeBetween);
+            Invoke(nameof(Shoot), weaponData.timeBetween);
         }
 
         if (SoundManager.Instance != null)
-        {
             SoundManager.Instance.PlaySound2();
-        }
     }
-
-
 
     private void ResetShot()
     {
-        readytoShoot = true;
+        readyToShoot = true;
         canShoot = true;
     }
 
@@ -136,21 +120,24 @@ public class Weapon : MonoBehaviour
         Destroy(bullet);
     }
 
-    IEnumerator Reload(float time)
+    IEnumerator Reload()
     {
         canShoot = false;
-        readytoShoot = false;
+        readyToShoot = false;
         Debug.Log("Reloading...");
 
-        // animation reload
-        if (animator != null) animator.SetTrigger("Reload");
-        animator.SetBool("isShooting", false);
-        yield return new WaitForSeconds(time);
+        if (playerAnim != null)
+        {
+            playerAnim.GetComponent<Animator>().SetBool("isShooting", false);
+            playerAnim.GetComponent<Animator>().SetBool("Reload", true);
+        }
 
-        int neededAmmo = magSize - currentAmmo;
+        yield return new WaitForSeconds(weaponData.reloadTime);
+
+        int neededAmmo = weaponData.magSize - currentAmmo;
         if (reserveAmmo >= neededAmmo)
         {
-            currentAmmo = magSize;
+            currentAmmo = weaponData.magSize;
             reserveAmmo -= neededAmmo;
         }
         else
@@ -160,12 +147,14 @@ public class Weapon : MonoBehaviour
         }
 
         canShoot = true;
-        readytoShoot = true;
+        readyToShoot = true;
+        if (playerAnim != null)
+            playerAnim.GetComponent<Animator>().SetBool("Reload", false);
+
         Debug.Log("Reloaded!");
+
         if (SoundManager.Instance != null)
-        {
-            SoundManager.Instance.PlaySound3();  // hoặc PlaySound(index) tùy âm bạn gán
-        }
+            SoundManager.Instance.PlaySound3();
     }
 
     public Vector3 CalculateDirectionAndSpread()
@@ -180,16 +169,21 @@ public class Weapon : MonoBehaviour
             targetPoint = ray.GetPoint(75);
 
         Vector3 directionWithoutSpread = targetPoint - bulletspawn.position;
-
-        float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
-        float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
-
+        float x = UnityEngine.Random.Range(-weaponData.spreadIntensity, weaponData.spreadIntensity);
+        float y = UnityEngine.Random.Range(-weaponData.spreadIntensity, weaponData.spreadIntensity);
         return directionWithoutSpread + new Vector3(x, y, 0);
     }
 
     public void AddAmmo(int amount)
     {
-        reserveAmmo = Mathf.Min(reserveAmmo + amount, maxAmmo);
+        reserveAmmo = Mathf.Min(reserveAmmo + amount, weaponData.maxAmmo);
         Debug.Log("Đạn dự trữ: " + reserveAmmo);
+    }
+
+    public enum fireMode
+    {
+        automatic,
+        burst,
+        single
     }
 }

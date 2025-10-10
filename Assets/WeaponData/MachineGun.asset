@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17081e34d0832724e8e1a468d16d6ebe, type: 3}
+  m_Name: MachineGun
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: M249
+  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
+  bulletVelocity: 40
+  bulletLifetime: 2
+  timeBetween: 0.05
+  bulletsPerShot: 1
+  spreadIntensity: 0.08
+  fireMode: 0
+  magSize: 100
+  reserveAmmo: 300
+  maxAmmo: 300
+  reloadTime: 4

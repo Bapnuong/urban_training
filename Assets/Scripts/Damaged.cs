@@ -44,7 +44,6 @@ public class Damaged : MonoBehaviour
     {
         UpdateHealthText();
         UpdateArmorText();
-        
     }
 
     public void PlayerTakeDamage(float damage)

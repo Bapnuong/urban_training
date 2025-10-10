@@ -1794,6 +1794,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Damaged
   maxHealth: 100
   currentHealth: 0
+  objhieuung: {fileID: 0}
+  effectDuration: 0.4
   maxArmor: 100
   currentArmor: 0
   textHealth: {fileID: 0}
@@ -1811,23 +1813,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
+  weaponData: {fileID: 0}
   bulletspawn: {fileID: 8387976841413283877}
-  bulletVelocity: 800
-  bulletLifetime: 2
   fpsCam: {fileID: 805924194449184575}
-  isShooting: 0
-  readytoShoot: 0
-  timeBetween: 0.2
-  bulletpershoot: 3
-  currentburst: 0
-  spreadIntensity: 0
-  maxAmmo: 180
-  reserveAmmo: 180
-  magSize: 30
-  currentAmmo: 0
   ammortext: {fileID: 0}
-  currentshootingmode: 0
+  isShooting: 0
+  readyToShoot: 0
+  canShoot: 1
 --- !u!1 &4038845947894234513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,6 +2402,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4947177779504724640}
+  - {fileID: 2160051943286763999}
   - {fileID: 32495665531193978}
   - {fileID: 2236323458130180656}
   - {fileID: 8387976841413283877}
@@ -3543,8 +3536,7 @@ Transform:
   m_LocalPosition: {x: 0.31221008, y: 1.4829814, z: 0.6268158}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2160051943286763999}
+  m_Children: []
   m_Father: {fileID: 410435872607556702}
   m_LocalEulerAnglesHint: {x: -0.284, y: 358.159, z: 0.216}
 --- !u!114 &3952631591274800794
@@ -3560,10 +3552,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 100000, guid: bf2593fe0c804b84688e307cfb1ddfae, type: 3}
-  - {fileID: 100002, guid: c7741850eebe1df4ea75a80275b16311, type: 3}
-  - {fileID: 100002, guid: 01890195b95a26f4fa4aa4f8f5a0cc5e, type: 3}
-  - {fileID: 100000, guid: 6f966b9a7c817ed49973b4a8762cbbdf, type: 3}
+  - {fileID: 6970416816606488823, guid: 8930f5c9e666d0e4988555ec9dd3e228, type: 3}
+  - {fileID: 3538898620554443083, guid: c46cff3c0bd09ec49ad10e101ed1be4f, type: 3}
+  - {fileID: 722804828928728772, guid: b9418a24df1ece149afd9ff7a04ced9c, type: 3}
   weaponHolder: {fileID: 2160051943286763999}
 --- !u!1 &9035839773901921573
 GameObject:
@@ -3683,10 +3674,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9117636309304290337}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000011641532, y: -0.0000000018626451, z: 3.5652192e-10, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0075010806, y: 0.9957932, z: 0.024577534, w: -0.087952115}
+  m_LocalPosition: {x: 0.3122056, y: 1.4829812, z: 0.6268145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4947177779504724640}
+  m_Father: {fileID: 410435872607556702}
   m_LocalEulerAnglesHint: {x: -0.284, y: 358.159, z: 0.216}
