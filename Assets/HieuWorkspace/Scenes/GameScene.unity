@@ -29421,6 +29421,29 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38be789410d69ef40a29459dfa506f11, type: 3}
+--- !u!1 &877348318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8276039174722335050, guid: 62711676ae7eb6940a16b243afd7442f, type: 3}
+  m_PrefabInstance: {fileID: 4855680080513047219}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &877348323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877348318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8740fa857c9edfe438c267524ee10274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapIcon
+  player: {fileID: 0}
+  minimapRect: {fileID: 0}
+  mapScale: 1
+  captureIconPrefab: {fileID: 0}
+  capturePoints: []
+  rotateWithPlayer: 1
 --- !u!4 &878904673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5415639185833406584, guid: cf719d43f3f5d954fbe0879e403e6c98, type: 3}
@@ -66249,7 +66272,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8276039174722335050, guid: 62711676ae7eb6940a16b243afd7442f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 877348323}
   m_SourcePrefab: {fileID: 100100000, guid: 62711676ae7eb6940a16b243afd7442f, type: 3}
 --- !u!1001 &4869833637362697079
 PrefabInstance:
