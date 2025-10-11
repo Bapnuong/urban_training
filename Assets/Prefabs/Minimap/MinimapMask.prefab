@@ -173,7 +173,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4719011196775340509}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 8593463080606769899}
   - component: {fileID: 2853829474361692493}
   - component: {fileID: 221463422758463036}
+  - component: {fileID: 5183707129055330479}
   m_Layer: 0
   m_Name: MinimapCamera
   m_TagString: Untagged
@@ -352,10 +353,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MinimapEnemyTracker
   player: {fileID: 0}
   minimapRect: {fileID: 3892407722542804873}
-  mapScale: 2
   enemyIconPrefab: {fileID: 4656687508430446991, guid: b3613a2e33c89d747b9ecf5b56023184, type: 3}
+  mapScale: 2
+  rotateWithPlayer: 1
   enemies:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &5183707129055330479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956808442755967589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8740fa857c9edfe438c267524ee10274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MinimapIcon
+  player: {fileID: 0}
+  minimapRect: {fileID: 3892407722542804873}
+  mapScale: 1
+  captureIconPrefab: {fileID: 3676118184361841160, guid: ae278ff0caf25674cb6e6b4c943a458e, type: 3}
+  capturePoints:
   - {fileID: 0}
   rotateWithPlayer: 1
