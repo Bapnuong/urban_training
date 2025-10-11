@@ -2,64 +2,65 @@
 
 public class danhsachvukhi : MonoBehaviour
 {
-    [Header("Danh sách prefab vũ khí")]
-    public GameObject[] weapons;   // danh sách prefab súng kéo từ Project vào
-    public Transform weaponHolder; // empty object đặt ở tay player
-
+    public GameObject[] weapons;
+    public Transform weaponHolder;
     private GameObject currentWeapon;
-    private int currentIndex = -1;
+    private int currentIndex = 0;
 
     void Start()
     {
-        // Nếu muốn mặc định có súng đầu tiên
-        if (weapons.Length > 0)
-        {
-            SwitchWeapon(0);
-        }
+        EquipWeapon(0);
     }
 
     void Update()
     {
-        // Nhấn phím số để đổi vũ khí
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) SwitchWeapon(3);
+        // Đổi bằng phím số
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
+                if (i != currentIndex)
+                    EquipWeapon(i);
+            }
+        }
 
-
-
-
-        // Hoặc cuộn chuột
+        // Đổi bằng cuộn chuột
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll > 0f) // lên
-        {
-            int next = (currentIndex + 1) % weapons.Length;
-            SwitchWeapon(next);
-        }
-        else if (scroll < 0f) // xuống
-        {
-            int prev = (currentIndex - 1 + weapons.Length) % weapons.Length;
-            SwitchWeapon(prev);
-        }
+        if (scroll > 0f)
+            EquipWeapon((currentIndex + 1) % weapons.Length);
+        else if (scroll < 0f)
+            EquipWeapon((currentIndex - 1 + weapons.Length) % weapons.Length);
     }
 
-    void SwitchWeapon(int index)
+    void EquipWeapon(int index)
     {
         if (index < 0 || index >= weapons.Length) return;
 
-        // Xóa vũ khí cũ
         if (currentWeapon != null)
-        {
             Destroy(currentWeapon);
-        }
 
-        // Sinh vũ khí mới làm con của weaponHolder
         currentWeapon = Instantiate(weapons[index], weaponHolder);
         currentWeapon.transform.localPosition = Vector3.zero;
         currentWeapon.transform.localRotation = Quaternion.identity;
-
         currentIndex = index;
+
+        // Gọi lại ApplyIKTargets sau khi đổi súng
+        Weapon weaponScript = currentWeapon.GetComponent<Weapon>();
+        if (weaponScript != null)
+        {
+            // delay 1 frame để chắc chắn rig cập nhật xong
+            Invoke(nameof(ApplyIKSafe), 0.05f);
+        }
 
         Debug.Log("Đổi sang vũ khí: " + currentWeapon.name);
     }
+
+    void ApplyIKSafe()
+    {
+        if (currentWeapon == null) return;
+        Weapon weaponScript = currentWeapon.GetComponent<Weapon>();
+        if (weaponScript != null)
+            weaponScript.ApplyIKTargets();
+    }
 }
+    

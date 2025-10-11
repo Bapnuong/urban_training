@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+﻿using System.Collections;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -17,17 +18,24 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public bool readyToShoot;
     [HideInInspector] public bool canShoot = true;
 
+    [Header("IK Settings")]
+    public Transform leftHandIKTarget;
+    public Transform rightHandIKTarget;
+
+    [Header("IK Constraints (kéo tay từ Player vào đây)")]
+    public TwoBoneIKConstraint leftHandIK;
+    public TwoBoneIKConstraint rightHandIK;
+
     private int currentAmmo;
     private int reserveAmmo;
     private int currentburst;
 
-    private Animator animator;
     private Damaged playerAnim;
-
 
     private void Awake()
     {
         ammortext = GameObject.FindGameObjectWithTag("AmmoText")?.GetComponent<Text>();
+
         if (weaponData == null)
         {
             Debug.LogError("WeaponData missing on " + name);
@@ -49,15 +57,45 @@ public class Weapon : MonoBehaviour
 
         currentAmmo = savedAmmo.Item1;
         reserveAmmo = savedAmmo.Item2;
-
         currentburst = weaponData.bulletsPerShot;
 
         playerAnim = FindObjectOfType<Damaged>();
     }
 
+    private void OnEnable()
+    {
+        // ✅ Gọi lại IK mỗi khi đổi súng hoặc bật weapon
+        ApplyIKTargets();
+    }
+
+    // ✅ Đặt public để script đổi súng (danhsachvukhi) có thể gọi thủ công
+    public void ApplyIKTargets()
+    {
+        // Kiểm tra hợp lệ trước khi gán
+        if (leftHandIK != null && leftHandIKTarget != null)
+        {
+            leftHandIK.data.target = leftHandIKTarget;
+            leftHandIK.weight = 1f;
+        }
+        else
+        {
+            Debug.LogWarning($"[Weapon] LeftHandIK hoặc target chưa gán trên {name}");
+        }
+
+        if (rightHandIK != null && rightHandIKTarget != null)
+        {
+            rightHandIK.data.target = rightHandIKTarget;
+            rightHandIK.weight = 1f;
+        }
+        else
+        {
+            Debug.LogWarning($"[Weapon] RightHandIK hoặc target chưa gán trên {name}");
+        }
+    }
+
     private void OnDisable()
     {
-        // ✅ Khi tắt vũ khí (đổi sang vũ khí khác) → Lưu lại ammo
+        // ✅ Lưu lại ammo khi tắt weapon
         if (WeaponManager.Instance != null && weaponData != null)
         {
             WeaponManager.Instance.SaveAmmo(weaponData.weaponName, currentAmmo, reserveAmmo);
