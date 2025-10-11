@@ -327,6 +327,8 @@ MonoBehaviour:
   canShoot: 1
   leftHandIKTarget: {fileID: 5111465945922679911}
   rightHandIKTarget: {fileID: 4612848796148867033}
+  leftHandIK: {fileID: 0}
+  rightHandIK: {fileID: 0}
 --- !u!1 &722804828928728774
 GameObject:
   m_ObjectHideFlags: 0

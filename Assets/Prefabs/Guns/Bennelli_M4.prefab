@@ -192,5 +192,7 @@ MonoBehaviour:
   isShooting: 0
   readyToShoot: 0
   canShoot: 1
-  leftHandIKTarget: {fileID: 0}
-  rightHandIKTarget: {fileID: 0}
+  leftHandIKTarget: {fileID: 6147172327781864565}
+  rightHandIKTarget: {fileID: 7977976708981921740}
+  leftHandIK: {fileID: 0}
+  rightHandIK: {fileID: 0}

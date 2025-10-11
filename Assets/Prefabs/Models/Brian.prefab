@@ -520,7 +520,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1224038219478721949}
   - component: {fileID: 2894688538669946194}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -964,7 +964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9128747136193775799}
   - component: {fileID: 5278723965993253360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Torso_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,7 +1214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3567526347898108562}
   - component: {fileID: 7668354777993432520}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Legs_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1433,7 +1433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8614737911715602020}
   - component: {fileID: 4959033228700463887}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hands_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2400,7 +2400,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 767
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2576,9 +2576,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5718911350230512806}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.026987059, y: 0.7468971, z: 0.64486635, w: -0.15988705}
-  m_LocalPosition: {x: -0.00019552691, y: -0.006934439, z: -0.014033613}
-  m_LocalScale: {x: 0.010000001, y: 0.009999997, z: 0.010000003}
+  m_LocalRotation: {x: 0.026986979, y: 0.7468971, z: 0.6448662, w: -0.15988712}
+  m_LocalPosition: {x: -0.00019552611, y: -0.0069344407, z: -0.014033616}
+  m_LocalScale: {x: 0.010000003, y: 0.01, z: 0.010000003}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4947177779504724640}
@@ -2852,7 +2852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6940814896305232002}
   - component: {fileID: 5485932469177185297}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Helmet_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
