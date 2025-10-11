@@ -25560,6 +25560,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8486bb02095564b418151ad045a854e0, type: 3}
+--- !u!4 &756528689 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3977745805550908564, guid: ade43821a4a685441a4fef1debaddd39, type: 3}
+  m_PrefabInstance: {fileID: 1774154019}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &757831264
 GameObject:
   m_ObjectHideFlags: 0
@@ -56920,7 +56925,7 @@ PrefabInstance:
     - target: {fileID: 1264011807106042466, guid: 62711676ae7eb6940a16b243afd7442f, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 756528689}
     - target: {fileID: 2688655860170174041, guid: 62711676ae7eb6940a16b243afd7442f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -57004,7 +57009,7 @@ PrefabInstance:
     - target: {fileID: 3819810101257600275, guid: 62711676ae7eb6940a16b243afd7442f, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 756528689}
     - target: {fileID: 3819810101257600275, guid: 62711676ae7eb6940a16b243afd7442f, type: 3}
       propertyPath: enemies.Array.size
       value: 2

@@ -2355,7 +2355,7 @@ Transform:
   m_GameObject: {fileID: 5063762524249666208}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5270233, y: 0.17409992, z: 0.27682495}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3433,7 +3433,7 @@ Transform:
   m_GameObject: {fileID: 7953226457892007382}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5270233, y: 1.4638999, z: -0.27682495}
+  m_LocalPosition: {x: 0, y: 1.65, z: 0.152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3456,6 +3456,8 @@ MonoBehaviour:
   mouseSensitivity: 100
   topClamp: -90
   bottomClamp: 90
+  smoothLook: 1
+  smoothTime: 0.05
 --- !u!1 &8070521921978203579
 GameObject:
   m_ObjectHideFlags: 0
