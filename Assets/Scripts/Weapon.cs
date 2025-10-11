@@ -41,11 +41,27 @@ public class Weapon : MonoBehaviour
         }
 
         readyToShoot = true;
-        currentAmmo = weaponData.magSize;
-        reserveAmmo = weaponData.reserveAmmo;
+
+        // ✅ Lấy ammo đã lưu từ WeaponManager (nếu có)
+        var savedAmmo = WeaponManager.Instance != null
+            ? WeaponManager.Instance.GetAmmo(weaponData.weaponName, weaponData.magSize, weaponData.reserveAmmo)
+            : (weaponData.magSize, weaponData.reserveAmmo);
+
+        currentAmmo = savedAmmo.Item1;
+        reserveAmmo = savedAmmo.Item2;
+
         currentburst = weaponData.bulletsPerShot;
 
         playerAnim = FindObjectOfType<Damaged>();
+    }
+
+    private void OnDisable()
+    {
+        // ✅ Khi tắt vũ khí (đổi sang vũ khí khác) → Lưu lại ammo
+        if (WeaponManager.Instance != null && weaponData != null)
+        {
+            WeaponManager.Instance.SaveAmmo(weaponData.weaponName, currentAmmo, reserveAmmo);
+        }
     }
 
     void Update()
@@ -75,7 +91,6 @@ public class Weapon : MonoBehaviour
             StartCoroutine(Reload());
         }
 
-
         // UI
         if (ammortext != null)
             ammortext.text = currentAmmo + " / " + reserveAmmo;
@@ -88,9 +103,7 @@ public class Weapon : MonoBehaviour
         // Shotgun xử lý khác: bắn nhiều viên (pellets) cùng lúc
         if (weaponData.fireMode == fireMode.shotgun)
         {
-            // Số pellet dùng chung với bulletsPerShot trong WeaponData
             int pellets = Mathf.Max(1, weaponData.bulletsPerShot);
-            // Bạn có thể điều chỉnh hệ số nhân để shotgun tỏa rộng hơn
             float shotgunSpread = weaponData.spreadIntensity * 2f;
 
             for (int i = 0; i < pellets; i++)
@@ -104,7 +117,6 @@ public class Weapon : MonoBehaviour
                 StartCoroutine(DestroyBulletAfterTime(pellet, weaponData.bulletLifetime));
             }
             Instantiate(smokeEffect, bulletspawn.position, bulletspawn.rotation);
-            // Giảm 1 viên đạn cho mỗi phát shotgun (không trừ theo pellet)
             currentAmmo--;
 
             if (playerAnim != null)
@@ -124,7 +136,7 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        // Các loại súng bình thường (single/automatic/burst)
+        // Các loại súng bình thường
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
 
         GameObject bullet = Instantiate(weaponData.bulletPrefab, bulletspawn.position, Quaternion.identity);
@@ -133,7 +145,7 @@ public class Weapon : MonoBehaviour
         if (rbBullet != null)
             rbBullet.AddForce(shootingDirection * weaponData.bulletVelocity, ForceMode.Impulse);
         StartCoroutine(DestroyBulletAfterTime(bullet, weaponData.bulletLifetime));
-
+        Instantiate(smokeEffect, bulletspawn.position, bulletspawn.rotation);
         currentAmmo--;
 
         if (playerAnim != null)
@@ -205,7 +217,6 @@ public class Weapon : MonoBehaviour
             SoundManager.Instance.PlaySound3();
     }
 
-    // Cho phép truyền spread tùy chỉnh (ví dụ shotgun)
     public Vector3 CalculateDirectionAndSpread(float customSpread = -1f)
     {
         float spreadValue = customSpread > 0f ? customSpread : weaponData.spreadIntensity;
@@ -231,11 +242,14 @@ public class Weapon : MonoBehaviour
         Debug.Log("Đạn dự trữ: " + reserveAmmo);
     }
 
+    public int GetCurrentAmmo() => currentAmmo;
+    public int GetReserveAmmo() => reserveAmmo;
+
     public enum fireMode
     {
         automatic,
         burst,
         single,
-        shotgun // thêm kiểu bắn shotgun
+        shotgun
     }
 }
