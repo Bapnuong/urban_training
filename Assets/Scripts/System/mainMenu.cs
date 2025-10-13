@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 public class mainMenu : MonoBehaviour
 {
     public Text welcomeText;
@@ -9,6 +10,18 @@ public class mainMenu : MonoBehaviour
 
     private UserData currentUser;
 
+    // ✅ Thêm phần hiển thị nhân vật
+    [Header("Player Display")]
+    public Transform playerSpawnPoint;  // vị trí spawn trong scene
+    public GameObject playerPrefab;     // prefab nhân vật (drag từ Project vào)
+    private GameObject currentPlayerObj;
+    private GameObject inventoryUI;
+    private void Awake()
+    {
+        inventoryUI = GameObject.FindGameObjectWithTag("InventoryUI");
+        if (inventoryUI != null)
+            inventoryUI.SetActive(false); // ẩn UI Inventory khi vào Main Menu
+    }
     void Start()
     {
         if (!AuthManager.IsLoggedIn())
@@ -18,7 +31,12 @@ public class mainMenu : MonoBehaviour
         }
 
         LoadUser();
+        MainMenuRef.currentUser = currentUser;
+        SaveSystem.SaveUser(currentUser);
         RefreshUI();
+
+        // ✅ Hiển thị nhân vật ra màn hình
+        ShowSelectedCharacter();
     }
 
     void LoadUser()
@@ -35,7 +53,7 @@ public class mainMenu : MonoBehaviour
         var sel = currentUser.GetSelectedCharacter();
         if (sel != null)
         {
-            charInfoText.text = $"Nhân vật: {sel.characterName}\nLv {sel.level} | EXP {sel.exp}\nHP {sel.health} | Coins: {sel.coins}";
+            charInfoText.text = $"Nhân vật: {sel.characterName}\nLv {sel.level} | EXP {sel.exp} | Coins: {sel.coins}";
         }
         else
         {
@@ -71,6 +89,9 @@ public class mainMenu : MonoBehaviour
         SaveSystem.SaveUser(currentUser);
         RefreshUI();
         messageText.text = $"Đã cộng {amount} EXP.";
+
+        // ✅ Cập nhật hiển thị nhân vật nếu cần
+        ShowSelectedCharacter();
     }
 
     void TryLevelUp(CharacterData c)
@@ -83,5 +104,41 @@ public class mainMenu : MonoBehaviour
             c.coins += 50; // thưởng coins khi lên cấp
             need = 100 + (c.level - 1) * 50;
         }
+    }
+    public void home()
+    {
+        if(!inventoryUI.activeSelf)
+        {
+            inventoryUI.SetActive(true);
+        }
+        else{
+            inventoryUI.SetActive(false);
+        }
+    }
+    // ✅ Hàm hiển thị nhân vật ra Main Menu
+    void ShowSelectedCharacter()
+    {
+        if (playerPrefab == null || playerSpawnPoint == null)
+        {
+            Debug.LogWarning("⚠️ Chưa gán Player Prefab hoặc Player Spawn Point trong Inspector!");
+            return;
+        }
+
+        var sel = currentUser.GetSelectedCharacter();
+        if (sel == null)
+        {
+            Debug.Log("❌ Không có nhân vật nào được chọn để hiển thị.");
+            return;
+        }
+
+        // Xóa nhân vật cũ (nếu có)
+        if (currentPlayerObj != null)
+            Destroy(currentPlayerObj);
+
+        // Spawn nhân vật mới
+        currentPlayerObj = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
+
+        // Có thể thêm tuỳ chỉnh hiển thị (vd: đặt tên)
+        currentPlayerObj.name = sel.characterName;
     }
 }

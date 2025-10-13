@@ -60,6 +60,9 @@ public class CharacterSelectManager : MonoBehaviour
         currentUser.lastSelectedCharacterId = id;
         SaveSystem.SaveUser(currentUser);
         messageText.text = "Đã chọn nhân vật.";
+
+        // >>> thêm dòng này để quay về menu ngay
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void OnDeleteCharacter(string id)
