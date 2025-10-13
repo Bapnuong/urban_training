@@ -28,10 +28,6 @@ public class PlayerMovement : MonoBehaviour
         footstepSource.loop = true; // Lặp âm thanh bước chân
 
         // Nếu SoundManager có sẵn, lấy clip bước chân (ví dụ soundList[1])
-        if (SoundManager.Instance != null && SoundManager.Instance.soundList.Count > 1)
-        {
-            footstepSource.clip = SoundManager.Instance.soundList[1];
-        }
     }
 
     void Update()
@@ -58,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
             // âm thanh nhảy
             if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySound(2);
+                SoundManager.Instance.PlaySound5();
         }
 
         // gravity
