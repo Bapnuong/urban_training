@@ -6,9 +6,20 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     [Header("Danh sách âm thanh")]
-    public List<AudioClip> soundList = new List<AudioClip>();  // Thêm âm vào đây trong Inspector
+    public List<AudioClip> soundList = new List<AudioClip>();  
     private AudioSource audioSource;
+    public AudioClip myAudioClip;
 
+    private void Start()
+    {
+        AudioSource audiosource = gameObject.AddComponent<AudioSource>();
+        audiosource.clip = myAudioClip;
+        audiosource.playOnAwake = false;
+        audiosource.loop = true;
+        audiosource.spatialBlend = 1.0f;
+        audiosource.Play();
+
+    }
     void Awake()
     {
         if (Instance == null)
