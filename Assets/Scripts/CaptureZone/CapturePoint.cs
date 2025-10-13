@@ -93,7 +93,7 @@ public class CapturePoint : MonoBehaviour
 
 
             if (captureUIText != null)
-                captureUIText.text = "Cứ điểm đã bị chiếm!";
+                captureUIText.text = $"Cứ điểm đã bị chiếm bởi {currentOwner}!";
             Debug.Log($"Cứ điểm đã bị chiếm bởi {currentOwner}!");
         }
     }

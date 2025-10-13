@@ -8,10 +8,20 @@ public class Bullet : MonoBehaviour
 
     private Transform target;
 
+    private Vector3 direction;
+
     void Start()
     {
         Destroy(gameObject, lifeTime); // Tự hủy sau lifeTime giây
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        if (target != null)
+        {
+            direction = (target.position - transform.position).normalized;
+        }
+        else
+        {
+            direction = transform.forward;
+        }
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.PlaySound0();  // hoặc PlaySound(index) tùy âm bạn gán
@@ -20,10 +30,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        if (target == null) return;
-
-        // Bay về phía Player
-        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)
