@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class BossAIi : MonoBehaviour
 {
@@ -9,50 +10,47 @@ public class BossAIi : MonoBehaviour
 
     public float attackRange = 10f;
     public float bulletForce = 20f;
-    public float attackCooldown = 0.3f; // delay giữa mỗi viên
-    public int magazineSize = 5;        // số viên trong 1 băng
-    public float reloadTime = 2f;       // thời gian nạp đạn
-    public float speed = 800f;  
+    public float attackCooldown = 0.3f;
+    public int magazineSize = 5;
+    public float reloadTime = 2f;
+    public float speed = 800f;
 
     private int currentAmmo;
     private float nextAttackTime = 0f;
     private bool isReloading = false;
 
     private NavMeshAgent agent;
+    private Animator animator;
 
-    Animator animator;
     void Start()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        currentAmmo = magazineSize; // full đạn khi bắt đầu
+        currentAmmo = magazineSize;
+
         agent.acceleration = 12f;
         agent.angularSpeed = 500f;
         agent.stoppingDistance = 2f;
-        // Tìm Player bằng tag
-        GameObject p = GameObject.FindGameObjectWithTag("Player");
-        if (p != null)
-        {
-            player = p.transform;
-        }
-        else
-        {
-            Debug.LogError("Không tìm thấy Player! Hãy chắc chắn Player có tag 'Player'");
-        }
+
+        FindPlayer(); // ✅ Tìm player lúc đầu
+        StartCoroutine(CheckPlayerContinuously()); // ✅ Luôn kiểm tra lại nếu Player biến mất
     }
 
     void Update()
     {
         if (player == null) return;
-
-        if (isReloading) return; // khi đang reload thì không làm gì
+        if (isReloading) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
+
+        // Di chuyển & xoay
         if (agent.velocity.sqrMagnitude > 0.1f)
         {
             Quaternion targetRot = Quaternion.LookRotation(agent.velocity.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 5f);
         }
+
+        // Nếu Player ngoài tầm bắn → đuổi theo
         if (distance > attackRange)
         {
             agent.isStopped = false;
@@ -63,13 +61,11 @@ public class BossAIi : MonoBehaviour
         else
         {
             agent.isStopped = true;
-            // Xoay về phía Player
             Vector3 dir = (player.position - transform.position).normalized;
             dir.y = 0;
             if (dir != Vector3.zero)
                 transform.rotation = Quaternion.LookRotation(dir);
 
-            // Bắn cooldown
             if (Time.time >= nextAttackTime && currentAmmo > 0)
             {
                 Shoot();
@@ -77,11 +73,12 @@ public class BossAIi : MonoBehaviour
                 nextAttackTime = Time.time + attackCooldown;
 
                 if (currentAmmo <= 0)
-                {
                     StartCoroutine(Reload());
-                }
             }
-            else animator.SetBool("IsShooting",false);
+            else
+            {
+                animator.SetBool("IsShooting", false);
+            }
         }
     }
 
@@ -94,7 +91,6 @@ public class BossAIi : MonoBehaviour
 
         if (rb != null && player != null)
         {
-            // ✅ Tính hướng chính xác tới player
             Vector3 shootDir = (player.position + Vector3.up * 1.2f - firePoint.position).normalized;
             rb.AddForce(shootDir * bulletForce * speed, ForceMode.Impulse);
         }
@@ -102,8 +98,7 @@ public class BossAIi : MonoBehaviour
         Debug.Log("Boss bắn đạn! Còn: " + currentAmmo + " viên");
     }
 
-
-    System.Collections.IEnumerator Reload()
+    IEnumerator Reload()
     {
         isReloading = true;
         animator.SetTrigger("Reload");
@@ -112,5 +107,37 @@ public class BossAIi : MonoBehaviour
         currentAmmo = magazineSize;
         isReloading = false;
         Debug.Log("Boss đã nạp xong!");
+    }
+
+    // ✅ Hàm tìm player
+    void FindPlayer()
+    {
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
+        {
+            player = p.transform;
+            Debug.Log("Boss đã tìm thấy Player mới!");
+        }
+        else
+        {
+            player = null;
+        }
+    }
+
+    // ✅ Kiểm tra liên tục để tìm lại Player khi bị xóa/chết
+    IEnumerator CheckPlayerContinuously()
+    {
+        while (true)
+        {
+            if (player == null)
+            {
+                FindPlayer();
+            }
+            else if (!player.gameObject.activeInHierarchy)
+            {
+                player = null;
+            }
+            yield return new WaitForSeconds(1f); // kiểm tra mỗi giây để tiết kiệm hiệu năng
+        }
     }
 }

@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.UI; // ⚡ thêm để dùng UI
 
 public class danhsachvukhi : MonoBehaviour
 {
+    [Header("Danh sách súng")]
     public GameObject[] weapons;
+
+    [Header("Hình ảnh minh họa tương ứng (theo thứ tự)")]
+    public Sprite[] weaponIcons;
+
+    [Header("Vị trí gắn súng")]
     public Transform weaponHolder;
+
+    [Header("UI hiển thị ảnh súng")]
+    public Image weaponImage; // ⚡ ảnh trên Canvas
+
     private GameObject currentWeapon;
     private int currentIndex = 0;
 
@@ -48,9 +59,11 @@ public class danhsachvukhi : MonoBehaviour
         Weapon weaponScript = currentWeapon.GetComponent<Weapon>();
         if (weaponScript != null)
         {
-            // delay 1 frame để chắc chắn rig cập nhật xong
             Invoke(nameof(ApplyIKSafe), 0.05f);
         }
+
+        // ✅ Cập nhật hình ảnh minh họa UI
+        UpdateWeaponImage(index);
 
         Debug.Log("Đổi sang vũ khí: " + currentWeapon.name);
     }
@@ -62,5 +75,17 @@ public class danhsachvukhi : MonoBehaviour
         if (weaponScript != null)
             weaponScript.ApplyIKTargets();
     }
+
+    void UpdateWeaponImage(int index)
+    {
+        if (weaponImage != null && weaponIcons != null && index < weaponIcons.Length)
+        {
+            weaponImage.sprite = weaponIcons[index];
+            weaponImage.enabled = true; // hiện ảnh
+        }
+        else if (weaponImage != null)
+        {
+            weaponImage.enabled = false; // ẩn nếu không có ảnh
+        }
+    }
 }
-    
