@@ -92,13 +92,13 @@ public class Damaged : MonoBehaviour
     public void UpdateHealthText()
     {
         if (textHealth != null)
-            textHealth.text = "HP: " + Mathf.Max(0, currentHealth).ToString("F0");
+            textHealth.text = "MÁU: " + Mathf.Max(0, currentHealth).ToString("F0");
     }
 
     public void UpdateArmorText()
     {
         if (textArmor != null)
-            textArmor.text = "Armor: " + Mathf.Max(0, currentArmor).ToString("F0");
+            textArmor.text = "GIÁP: " + Mathf.Max(0, currentArmor).ToString("F0");
     }
 
     private void OnCollisionEnter(Collision collision)
