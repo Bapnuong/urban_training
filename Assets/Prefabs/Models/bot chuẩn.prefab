@@ -208,7 +208,7 @@ MonoBehaviour:
   attackCooldown: 1
   magazineSize: 5
   reloadTime: 2
-  speed: 500
+  speed: 1
 --- !u!195 &2734626295885836823
 NavMeshAgent:
   m_ObjectHideFlags: 0

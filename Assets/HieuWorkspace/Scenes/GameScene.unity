@@ -6192,6 +6192,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1329182499735914960, guid: db25e2b360c223d46b467a9c7ef77ed5, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2359022088396801606, guid: db25e2b360c223d46b467a9c7ef77ed5, type: 3}
       propertyPath: m_Name
       value: "bot chu\u1EA9n"
@@ -32348,6 +32352,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1329182499735914960, guid: db25e2b360c223d46b467a9c7ef77ed5, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2359022088396801606, guid: db25e2b360c223d46b467a9c7ef77ed5, type: 3}
       propertyPath: m_Name
       value: "bot chu\u1EA9n (2)"
@@ -39589,6 +39597,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1329182499735914960, guid: db25e2b360c223d46b467a9c7ef77ed5, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2359022088396801606, guid: db25e2b360c223d46b467a9c7ef77ed5, type: 3}
       propertyPath: m_Name
       value: "bot chu\u1EA9n (1)"
