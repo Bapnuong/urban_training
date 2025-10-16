@@ -57,5 +57,7 @@ public class SoundManager : MonoBehaviour
     public void PlaySound3() => PlaySound(3);
     public void PlaySound4() => PlaySound(4);
     public void PlaySound5() => PlaySound(5);
+    public void PlaySound6() => PlaySound(6);
+
 
 }

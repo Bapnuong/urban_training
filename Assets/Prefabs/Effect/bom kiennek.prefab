@@ -29458,7 +29458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TraumaInducer
   Delay: 1
   Range: 5
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 2538838609031268697}
   explosionSound: {fileID: 0}
 --- !u!33 &1736136387508062645
 MeshFilter:
@@ -29578,11 +29578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bec04cc22d04d6a42a15b64330ea3e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombExplosion
-  Delay: 1
+  Delay: 2
   MaximumStress: 0.6
   Range: 45
   explosionDamage: 50
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 5114608666269618974}
 --- !u!1 &7275096690540643772
 GameObject:
   m_ObjectHideFlags: 0
