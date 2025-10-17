@@ -4,86 +4,68 @@ using System.Collections;
 
 public class AllyAI : MonoBehaviour
 {
-    [Header("References")]
-    public Transform player;            // Player để đi theo
-    public Transform firePoint;         // Vị trí bắn
-    public GameObject bulletPrefab;     // Prefab đạn
-    public LayerMask enemyLayer;        // Layer của Enemy
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+    public LayerMask enemyLayer;
 
     [Header("Stats")]
-    public float sightRange = 20f;      // Tầm nhìn tìm enemy
-    public float attackRange = 10f;     // Tầm bắn enemy
-    public float followDistance = 3f;   // Khoảng cách giữ với player
-    public float moveSpeed = 4f;        // Tốc độ di chuyển (dùng NavMeshAgent)
-    public float bulletForce = 30f;     // Lực bắn đạn
-    public float attackCooldown = 0.3f; // Thời gian giữa các viên
-    public int magazineSize = 5;        // Số đạn / băng
-    public float reloadTime = 2f;       // Thời gian nạp lại
+    public float sightRange = 20f;
+    public float attackRange = 10f;
+    public float moveSpeed = 4f;
+    public float bulletForce = 30f;
+    public float attackCooldown = 0.3f;
+    public int magazineSize = 5;
+    public float reloadTime = 2f;
 
     private int currentAmmo;
     private bool isReloading = false;
     private float nextAttackTime = 0f;
-
     private Transform currentEnemy;
+
     private NavMeshAgent agent;
+    private Animator animator; // ✅ thêm Animator
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = moveSpeed;
+        animator = GetComponent<Animator>(); // ✅ gán Animator
 
-        if (player == null)
-        {
-            GameObject p = GameObject.FindGameObjectWithTag("Player");
-            if (p != null)
-                player = p.transform;
-        }
+        if (agent != null)
+            agent.speed = moveSpeed;
 
         currentAmmo = magazineSize;
     }
 
     void Update()
     {
-        if (player == null || agent == null) return;
-        if (isReloading) return;
+        if (agent == null || isReloading) return;
 
-        // --- TÌM ENEMY ---
         currentEnemy = FindClosestEnemy();
 
         if (currentEnemy != null)
         {
-            float distToEnemy = Vector3.Distance(transform.position, currentEnemy.position);
-            if (distToEnemy <= attackRange)
+            float dist = Vector3.Distance(transform.position, currentEnemy.position);
+
+            if (dist <= attackRange)
             {
-                // Dừng lại và bắn enemy
                 agent.isStopped = true;
                 LookAt(currentEnemy.position);
                 TryShoot();
             }
             else
             {
-                // Tiến đến gần enemy
                 agent.isStopped = false;
                 agent.SetDestination(currentEnemy.position);
             }
         }
         else
         {
-            // --- KHÔNG CÓ ENEMY → ĐI THEO PLAYER ---
-            float distToPlayer = Vector3.Distance(transform.position, player.position);
-
-            if (distToPlayer > followDistance)
-            {
-                agent.isStopped = false;
-                agent.SetDestination(player.position);
-            }
-            else
-            {
-                // Đứng cạnh player và nhìn theo player
-                agent.isStopped = true;
-                LookAt(player.position);
-            }
+            agent.isStopped = true;
         }
+
+        // ✅ Cập nhật animation di chuyển
+        if (animator != null)
+            animator.SetBool("isRunning", agent.velocity.magnitude > 0.1f);
     }
 
     void TryShoot()
@@ -108,17 +90,20 @@ public class AllyAI : MonoBehaviour
         if (rb != null)
             rb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
 
-        Debug.Log("Ally bắn đạn! Còn: " + currentAmmo + " viên");
+        if (animator != null)
+            animator.SetTrigger("Shoot"); // ✅ animation bắn
+
+        Debug.Log("dong minh bắn đạn! Còn: " + currentAmmo + " viên");
     }
 
     IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Ally đang nạp đạn...");
+        if (animator != null)
+            animator.SetTrigger("Reload"); // ✅ animation nạp đạn
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = magazineSize;
         isReloading = false;
-        Debug.Log("Ally đã nạp xong!");
     }
 
     Transform FindClosestEnemy()
@@ -129,13 +114,10 @@ public class AllyAI : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            float distToPlayer = Vector3.Distance(hit.transform.position, player.position);
-            float distToAlly = Vector3.Distance(hit.transform.position, transform.position);
-            float priority = distToPlayer * 0.5f + distToAlly; // ưu tiên gần player hơn
-
-            if (priority < minDist)
+            float dist = Vector3.Distance(transform.position, hit.transform.position);
+            if (dist < minDist)
             {
-                minDist = priority;
+                minDist = dist;
                 best = hit.transform;
             }
         }

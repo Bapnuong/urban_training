@@ -133,5 +133,7 @@ public class Damaged : MonoBehaviour
         isDead = true;
         animator.SetTrigger("Die");
         Debug.Log("Player died!");
+        Destroy(gameObject, 1f);
+
     }
 }

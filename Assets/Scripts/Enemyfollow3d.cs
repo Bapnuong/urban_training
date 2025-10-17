@@ -4,16 +4,18 @@ using System.Collections;
 
 public class BossAIi : MonoBehaviour
 {
-    private Transform player;
+    private Transform player; // target hiện tại
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    [Header("Stats")]
     public float attackRange = 10f;
     public float bulletForce = 20f;
     public float attackCooldown = 0.3f;
     public int magazineSize = 5;
     public float reloadTime = 2f;
     public float speed = 800f;
+    public float targetUpdateRate = 1.5f; // thời gian giữa mỗi lần tìm mục tiêu mới
 
     private int currentAmmo;
     private float nextAttackTime = 0f;
@@ -32,8 +34,8 @@ public class BossAIi : MonoBehaviour
         agent.angularSpeed = 500f;
         agent.stoppingDistance = 2f;
 
-        FindPlayer(); // ✅ Tìm player lúc đầu
-        StartCoroutine(CheckPlayerContinuously()); // ✅ Luôn kiểm tra lại nếu Player biến mất
+        // ✅ Luôn tìm player gần nhất
+        StartCoroutine(UpdateClosestPlayer());
     }
 
     void Update()
@@ -55,8 +57,7 @@ public class BossAIi : MonoBehaviour
         {
             agent.isStopped = false;
             agent.SetDestination(player.position);
-            float velocity = agent.velocity.magnitude;
-            animator.SetBool("Moving", velocity > 0.1f);
+            animator.SetBool("Moving", agent.velocity.magnitude > 0.1f);
         }
         else
         {
@@ -86,16 +87,19 @@ public class BossAIi : MonoBehaviour
     {
         animator.SetBool("IsShooting", true);
 
+        if (bulletPrefab == null || firePoint == null || player == null) return;
+
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
 
-        if (rb != null && player != null)
+        if (rb != null)
         {
             Vector3 shootDir = (player.position + Vector3.up * 1.2f - firePoint.position).normalized;
             rb.AddForce(shootDir * bulletForce * speed, ForceMode.Impulse);
         }
 
         Debug.Log("Boss bắn đạn! Còn: " + currentAmmo + " viên");
+        agent.isStopped = false;
     }
 
     IEnumerator Reload()
@@ -109,35 +113,35 @@ public class BossAIi : MonoBehaviour
         Debug.Log("Boss đã nạp xong!");
     }
 
-    // ✅ Hàm tìm player
-    void FindPlayer()
+    // ✅ Hàm tìm Player gần nhất
+    Transform FindClosestPlayer()
     {
-        GameObject p = GameObject.FindGameObjectWithTag("Player");
-        if (p != null)
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Transform closest = null;
+        float minDist = Mathf.Infinity;
+
+        foreach (var p in players)
         {
-            player = p.transform;
-            Debug.Log("Boss đã tìm thấy Player mới!");
+            if (!p.activeInHierarchy) continue;
+
+            float dist = Vector3.Distance(transform.position, p.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = p.transform;
+            }
         }
-        else
-        {
-            player = null;
-        }
+
+        return closest;
     }
 
-    // ✅ Kiểm tra liên tục để tìm lại Player khi bị xóa/chết
-    IEnumerator CheckPlayerContinuously()
+    // ✅ Coroutine tự động cập nhật Player gần nhất mỗi 1.5s
+    IEnumerator UpdateClosestPlayer()
     {
         while (true)
         {
-            if (player == null)
-            {
-                FindPlayer();
-            }
-            else if (!player.gameObject.activeInHierarchy)
-            {
-                player = null;
-            }
-            yield return new WaitForSeconds(1f); // kiểm tra mỗi giây để tiết kiệm hiệu năng
+            player = FindClosestPlayer();
+            yield return new WaitForSeconds(targetUpdateRate);
         }
     }
 }

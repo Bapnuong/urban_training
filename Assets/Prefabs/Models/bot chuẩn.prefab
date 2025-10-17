@@ -209,6 +209,7 @@ MonoBehaviour:
   magazineSize: 5
   reloadTime: 2
   speed: 1
+  targetUpdateRate: 1.5
 --- !u!195 &2734626295885836823
 NavMeshAgent:
   m_ObjectHideFlags: 0
