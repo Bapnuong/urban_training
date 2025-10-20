@@ -17,29 +17,50 @@ public class AllyAI : MonoBehaviour
     public int magazineSize = 5;
     public float reloadTime = 2f;
 
+    [Header("Wander Settings")]
+    public float wanderRadius = 25f;
+    public float wanderDelay = 1.5f;
+    public float stuckCheckTime = 3f; // thời gian kiểm tra bị kẹt
+
     private int currentAmmo;
     private bool isReloading = false;
     private float nextAttackTime = 0f;
     private Transform currentEnemy;
 
     private NavMeshAgent agent;
-    private Animator animator; // ✅ thêm Animator
+    private Animator animator;
+
+    private Vector3 lastPosition;
+    private float stuckTimer;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>(); // ✅ gán Animator
+        animator = GetComponent<Animator>();
 
         if (agent != null)
+        {
             agent.speed = moveSpeed;
+            agent.stoppingDistance = 0.5f;
+        }
 
         currentAmmo = magazineSize;
+        StartCoroutine(WanderLoop());
     }
 
     void Update()
     {
         if (agent == null || isReloading) return;
 
+        // --- Nếu enemy hiện tại chết hoặc bị xóa ---
+        if (currentEnemy != null && !currentEnemy.gameObject.activeInHierarchy)
+        {
+            currentEnemy = null;
+            agent.isStopped = false; // 🔥 Sửa lỗi đứng yên sau khi enemy chết
+            StartCoroutine(ResumePatrolAfterLost());
+        }
+
+        // --- Tìm enemy ---
         currentEnemy = FindClosestEnemy();
 
         if (currentEnemy != null)
@@ -52,20 +73,79 @@ public class AllyAI : MonoBehaviour
                 LookAt(currentEnemy.position);
                 TryShoot();
             }
-            else
+            else if (dist <= sightRange)
             {
                 agent.isStopped = false;
                 agent.SetDestination(currentEnemy.position);
             }
+            else
+            {
+                currentEnemy = null;
+                agent.isStopped = false;
+            }
+        }
+
+        // --- Kiểm tra kẹt ---
+        if (Vector3.Distance(transform.position, lastPosition) < 0.1f)
+        {
+            stuckTimer += Time.deltaTime;
+            if (stuckTimer > stuckCheckTime)
+            {
+                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+                agent.isStopped = false;
+                agent.SetDestination(newPos);
+                stuckTimer = 0;
+            }
         }
         else
         {
-            agent.isStopped = true;
+            stuckTimer = 0;
         }
 
-        // ✅ Cập nhật animation di chuyển
+        lastPosition = transform.position;
+
+        // --- Cập nhật animation ---
         if (animator != null)
             animator.SetBool("isRunning", agent.velocity.magnitude > 0.1f);
+    }
+
+    IEnumerator WanderLoop()
+    {
+        while (true)
+        {
+            agent.isStopped = false; // ✅ đảm bảo bot luôn được phép di chuyển
+
+            if (currentEnemy == null && !isReloading)
+            {
+                if (!agent.pathPending && (!agent.hasPath || agent.remainingDistance <= agent.stoppingDistance + 0.2f))
+                {
+                    Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+                    agent.SetDestination(newPos);
+                }
+            }
+            yield return new WaitForSeconds(wanderDelay);
+        }
+    }
+
+    IEnumerator ResumePatrolAfterLost()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (currentEnemy == null && !isReloading)
+        {
+            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            agent.isStopped = false;
+            agent.SetDestination(newPos);
+        }
+    }
+
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+        randDirection += origin;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        return navHit.position;
     }
 
     void TryShoot()
@@ -91,16 +171,14 @@ public class AllyAI : MonoBehaviour
             rb.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
 
         if (animator != null)
-            animator.SetTrigger("Shoot"); // ✅ animation bắn
-
-        Debug.Log("dong minh bắn đạn! Còn: " + currentAmmo + " viên");
+            animator.SetTrigger("Shoot");
     }
 
     IEnumerator Reload()
     {
         isReloading = true;
         if (animator != null)
-            animator.SetTrigger("Reload"); // ✅ animation nạp đạn
+            animator.SetTrigger("Reload");
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = magazineSize;
         isReloading = false;
@@ -114,6 +192,8 @@ public class AllyAI : MonoBehaviour
 
         foreach (var hit in hits)
         {
+            if (!hit.gameObject.activeInHierarchy) continue;
+
             float dist = Vector3.Distance(transform.position, hit.transform.position);
             if (dist < minDist)
             {
@@ -121,7 +201,6 @@ public class AllyAI : MonoBehaviour
                 best = hit.transform;
             }
         }
-
         return best;
     }
 
@@ -142,5 +221,7 @@ public class AllyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, wanderRadius);
     }
 }

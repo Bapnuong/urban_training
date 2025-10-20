@@ -99,7 +99,7 @@ public class BossAIi : MonoBehaviour
         }
 
         Debug.Log("Boss bắn đạn! Còn: " + currentAmmo + " viên");
-        agent.isStopped = false;
+      
     }
 
     IEnumerator Reload()

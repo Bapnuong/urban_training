@@ -78,6 +78,12 @@ public class mainMenu : MonoBehaviour
         AuthManager.Logout();
         SceneManager.LoadScene("LoginScene");
     }
+    public void gamescene()
+    {
+        SceneManager.LoadScene("gamescene");
+
+    }
+
 
     // example: add EXP to selected character (debug / for gameplay hook)
     public void AddExpToSelected(int amount)

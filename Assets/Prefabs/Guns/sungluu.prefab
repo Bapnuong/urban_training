@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f746248952d47404387dfd9a5b01ab2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  weaponData: {fileID: 11400000, guid: 0d11a57ea4cf4724d818a1c36dc19ada, type: 2}
+  weaponData: {fileID: 11400000, guid: 3369dd60682a00a4ea6932eaa398bb2d, type: 2}
   bulletspawn: {fileID: 3310220771245074429}
   fpsCam: {fileID: 0}
   ammortext: {fileID: 0}
