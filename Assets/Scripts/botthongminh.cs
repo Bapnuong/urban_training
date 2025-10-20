@@ -47,6 +47,10 @@ public class Bossthongminh : MonoBehaviour
     void Update()
     {
         if (isReloading) return;
+        if (CapturePoint.playerInside)
+            scanRadius = 500f;
+        else
+            scanRadius = 50f;
 
         if (player != null)
         {

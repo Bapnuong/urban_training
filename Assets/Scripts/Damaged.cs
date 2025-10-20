@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Damaged : MonoBehaviour
@@ -133,7 +134,7 @@ public class Damaged : MonoBehaviour
         isDead = true;
         animator.SetTrigger("Die");
         Debug.Log("Player died!");
-        Destroy(gameObject, 1f);
+        SceneManager.LoadScene("finish");
 
     }
 }

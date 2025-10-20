@@ -16,11 +16,5 @@ public class Amorsupply : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        if (other.CompareTag("bullet"))
-        {
-            Destroy(gameObject);
-        }
     }
-
-
 }

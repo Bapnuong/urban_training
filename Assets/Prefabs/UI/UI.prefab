@@ -814,34 +814,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4956808442755967589, guid: 72865b01a4144914094fce89cea7aec6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2567550421284318270}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72865b01a4144914094fce89cea7aec6, type: 3}
---- !u!1 &5753047968478935837 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4956808442755967589, guid: 72865b01a4144914094fce89cea7aec6, type: 3}
-  m_PrefabInstance: {fileID: 800780508812824952}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2567550421284318270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5753047968478935837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8740fa857c9edfe438c267524ee10274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MinimapIcon
-  player: {fileID: 0}
-  minimapRect: {fileID: 0}
-  mapScale: 1
-  captureIconPrefab: {fileID: 0}
-  capturePoints: []
-  rotateWithPlayer: 1
 --- !u!224 &7548182366905834582 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7195756595376180526, guid: 72865b01a4144914094fce89cea7aec6, type: 3}

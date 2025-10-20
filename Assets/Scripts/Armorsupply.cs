@@ -15,9 +15,5 @@ public class Armorsupply : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        if (other.CompareTag("bullet"))
-        {
-            Destroy(gameObject);
-        }
     }
 }

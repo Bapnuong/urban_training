@@ -15,9 +15,5 @@ public class HPsupply : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        if (other.CompareTag("bullet"))
-        {
-            Destroy(gameObject);
-        }
     }
 }

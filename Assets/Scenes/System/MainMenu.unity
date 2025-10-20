@@ -68796,6 +68796,7 @@ GameObject:
   - component: {fileID: 1927366335}
   - component: {fileID: 1927366334}
   - component: {fileID: 1927366333}
+  - component: {fileID: 1927366336}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -68888,6 +68889,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1927366336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927366331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d59905a5d866f41a3a1f12f1ef315c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowCursor
 --- !u!1001 &1930343227
 PrefabInstance:
   m_ObjectHideFlags: 0
