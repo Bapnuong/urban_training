@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: cd6c1c62eeb4612478b227ad714c7835
+timeCreated: 1464125505
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 106709
+  packageName: Free Low Poly Desert Pack
+  packageVersion: 1.0
+  assetPath: Assets/Free Low Poly Desert Pack/Materials/Shaders/Vertex_Color_Unlit.shader
+  uploadId: 748341
