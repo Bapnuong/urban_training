@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Gameplay/Menu.unity
     guid: 8e49c8de73d975f408d05620b45833f5
   - enabled: 1
-    path: Assets/Scenes/Gameplay/GameScene.unity
-    guid: 9f4633f9f6838d540bedc56796a8c0a6
-  - enabled: 1
     path: Assets/Scenes/System/MainMenu.unity
     guid: 3fd4813f2631be54b983a57327478bee
   - enabled: 1
@@ -20,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/System/LoginScene.unity
     guid: 39344031bfa5ead459482f6fd642fd2f
+  - enabled: 1
+    path: Assets/Scenes/kien.unity
+    guid: 36b74f21b6ec1dd45863fcf4b1f53dea
+  - enabled: 1
+    path: Assets/Scenes/System/gamescene.unity
+    guid: 0347369836a231f4faf7832e466f6d53
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0

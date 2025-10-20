@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17081e34d0832724e8e1a468d16d6ebe, type: 3}
   m_Name: PHONG LUU
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  weaponName: AK47
+  weaponName: phongluu
   bulletPrefab: {fileID: 5114608666269618974, guid: 3f1c47697a108244ab6478cb050279e0, type: 3}
   bulletVelocity: 25
   bulletLifetime: 2
   timeBetween: 0.6
-  bulletsPerShot: 8
+  bulletsPerShot: 1
   spreadIntensity: 0.2
-  fireMode: 0
+  fireMode: 2
   magSize: 8
   reserveAmmo: 32
   maxAmmo: 32

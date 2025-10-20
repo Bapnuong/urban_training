@@ -718,7 +718,7 @@ Animator:
   m_GameObject: {fileID: 2102086798977282481}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8bc48cae75a87a14f8ff687752cce8c4, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0088130bd0f4dfe4eb7fdb2e6443e32b, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bossthongminh
   firePoint: {fileID: 3617621132871442818}
   bulletPrefab: {fileID: 4895077014636784056, guid: b280d0159b821bd4eb4da0f3754a035e, type: 3}
-  scanRadius: 100
+  scanRadius: 31
   attackRange: 10
   bulletForce: 20
   attackCooldown: 0.3

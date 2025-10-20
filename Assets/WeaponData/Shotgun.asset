@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   weaponName: Shotgun
-  bulletPrefab: {fileID: 5114608666269618974, guid: 3f1c47697a108244ab6478cb050279e0, type: 3}
+  bulletPrefab: {fileID: 4895077014636784056, guid: 21c474f5501e26c4c81dfa1df1a76c4d, type: 3}
   bulletVelocity: 25
   bulletLifetime: 2
   timeBetween: 0.6
-  bulletsPerShot: 1
+  bulletsPerShot: 8
   spreadIntensity: 0.2
-  fireMode: 2
+  fireMode: 3
   magSize: 8
   reserveAmmo: 32
   maxAmmo: 32
