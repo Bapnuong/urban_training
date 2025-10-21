@@ -134,7 +134,7 @@ public class Damaged : MonoBehaviour
         isDead = true;
         animator.SetTrigger("Die");
         Debug.Log("Player died!");
-        SceneManager.LoadScene("finish");
+        SceneManager.LoadScene("lose");
 
     }
 }

@@ -20,6 +20,7 @@ public class CapturePoint : MonoBehaviour
 
     [Header("UI hiển thị % chiếm")]
     public Text captureUIText;
+    public bool isPlayerInside;
     public static bool playerInside = false;
     private int playerCount = 0;
 
@@ -36,6 +37,7 @@ public class CapturePoint : MonoBehaviour
 
     void Update()
     {
+        isPlayerInside = playerInside;
         if (isCaptured) return;
 
         // Nếu có Player trong vùng → chiếm
@@ -78,7 +80,7 @@ public class CapturePoint : MonoBehaviour
             if (captureUIText != null)
                 captureUIText.text = $"Cứ điểm đã bị chiếm bởi {currentOwner}!";
 
-            SceneManager.LoadScene("finish");
+            SceneManager.LoadScene("win");
         }
     }
 
