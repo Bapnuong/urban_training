@@ -7248,7 +7248,7 @@ GameObject:
   - component: {fileID: 178281305}
   - component: {fileID: 178281304}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: Delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20062,7 +20062,7 @@ GameObject:
   - component: {fileID: 533968343}
   - component: {fileID: 533968342}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Logut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28271,11 +28271,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 34
+    m_FontSize: 51
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 5
+    m_MaxSize: 51
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -36989,7 +36989,7 @@ GameObject:
   - component: {fileID: 1010916757}
   - component: {fileID: 1010916756}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39673,7 +39673,7 @@ GameObject:
   - component: {fileID: 1083991216}
   - component: {fileID: 1083991215}
   m_Layer: 5
-  m_Name: InventoryButton
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47224,7 +47224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -47233,18 +47233,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 34
+    m_FontSize: 98
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 104
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: play
+  m_Text: PLAY
 --- !u!222 &1303110225
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -47425,7 +47425,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 776.05, y: -437.14}
+  m_AnchoredPosition: {x: 717.1, y: -369.4}
   m_SizeDelta: {x: 367.9, y: 205.72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1310577797
@@ -47504,8 +47504,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3536d59e145cad04aa04447382f320c0, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -53495,12 +53495,12 @@ RectTransform:
   - {fileID: 1476944387}
   - {fileID: 604082583}
   - {fileID: 1173113677}
-  - {fileID: 533968341}
   - {fileID: 1310577796}
+  - {fileID: 533968341}
   - {fileID: 178281303}
   - {fileID: 1010916755}
-  - {fileID: 1441079815}
   - {fileID: 1083991214}
+  - {fileID: 1441079815}
   m_Father: {fileID: 1927366332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
