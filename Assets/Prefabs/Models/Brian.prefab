@@ -3766,8 +3766,13 @@ MonoBehaviour:
   weapons:
   - {fileID: 6970416816606488823, guid: 8930f5c9e666d0e4988555ec9dd3e228, type: 3}
   - {fileID: 3538898620554443083, guid: c46cff3c0bd09ec49ad10e101ed1be4f, type: 3}
-  - {fileID: 722804828928728772, guid: b9418a24df1ece149afd9ff7a04ced9c, type: 3}
+  - {fileID: 6970416816606488823, guid: f330004abadd53f418ea2b57a06ed9a0, type: 3}
+  weaponIcons:
+  - {fileID: 21300000, guid: 5d61b413468ae0647bfb8956dbfdf396, type: 3}
+  - {fileID: 21300000, guid: 4bf58143175a8464bb7dc008031dcfd4, type: 3}
+  - {fileID: 21300000, guid: f1d49ff627b9e6b42b535da29551e588, type: 3}
   weaponHolder: {fileID: 2160051943286763999}
+  weaponImage: {fileID: 0}
 --- !u!1 &9035839773901921573
 GameObject:
   m_ObjectHideFlags: 0
